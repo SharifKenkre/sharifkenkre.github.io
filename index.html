@@ -1,52 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monquee</title>
-    <style>
-        #centre{
-            text-align: center;
-            color: black;
-            text-decoration: none;
-        }
-        #radi{
-            border-radius: 20%;
-        }
-        #box{
-            width: fit-content;
-            border-radius: 20%;
-        }
-        #hover{
-
-        }
-        #img{
-            width: 200px;
-            border-radius: 20%;
-        }
-    </style>
-    </head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Cats</title>
+<style>
+  body {
+    background: #fff9f2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #4a311c;
+    margin: 0;
+    padding: 40px 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 3rem;
+    color: #d2691e;
+    text-shadow: 1px 1px 3px #a35411;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .cat-box {
+    background: #f7ebe0;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(210, 105, 30, 0.15);
+    padding: 20px 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .cat-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(210, 105, 30, 0.35);
+  }
+  .cat-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    box-shadow: 0 6px 18px rgba(210, 105, 30, 0.3);
+    transition: transform 0.3s ease;
+  }
+  .cat-box:hover .cat-img {
+    transform: scale(1.1);
+  }
+  .cat-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cat-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #a0522d;
+    user-select: none;
+  }
+  .cat-name span.initial {
+    color: #d2691e;
+    font-size: 1.7rem;
+    font-weight: 900;
+    margin-right: 3px;
+    font-family: 'Georgia', serif;
+  }
+  @media (max-width: 500px) {
+    body {
+      padding: 20px 10px;
+    }
+    .cat-img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+</style>
+</head>
 <body>
-    <fieldset >
-        <h2 id="centre">My Cats</h2>
-        <br>
-        
-            <fieldset id="box">
-                <a href="zimmer.html" id="hover">
-                    <img src="Zimmer.jpeg" alt="Zimmer" id="img" >
-                    <br>
-                    <h3 id="centre">Zimmer</h3>
-                 </a>
-            </fieldset>
 
-            <fieldset id="box">
-                <a href="monquee.html" id="hover">
-                    <img src="monquee.jpeg" alt="monquee" id="img" >
-                    <br>
-                    <h3 id="centre">monquee</h3>
-                 </a>
-            </fieldset>
-       
-    </fieldset>
+<h1>My Cats</h1>
+
+<div class="grid">
+
+    <a href="deandra.html" class="cat-box" aria-label="View details">
+        <div class="cat-img">
+        <img src="Deandra.jpeg" alt="Deandra" />
+        </div>
+        <div class="cat-name"><span class="initial">D</span>eandra</div>
+    </a>
+
+    <a href="Dennis.html" class="cat-box" aria-label="View details">
+        <div class="cat-img">
+        <img src="Dennis.jpeg" alt="Dennis" />
+        </div>
+        <div class="cat-name"><span class="initial">D</span>ennis</div>
+    </a>
+
+    <a href="Hans.html" class="cat-box" aria-label="View details">
+        <div class="cat-img">
+        <img src="Hans.jpeg" alt="Hans" />
+        </div>
+        <div class="cat-name"><span class="initial">H</span>ans</div>
+    </a>
+
+    <a href="J-Cub.html" class="cat-box" aria-label="View details ">
+        <div class="cat-img">
+        <img src="Jcub.jpeg" alt="J-Cub" />
+        </div>
+        <div class="cat-name"><span class="initial">J</span>-Cub</div>
+    </a>
+
+    <a href="manjiri.html" class="cat-box" aria-label="View details">
+        <div class="cat-img">
+        <img src="Manjiri.jpeg" alt="Manjiri" />
+        </div>
+        <div class="cat-name"><span class="initial">M</span>anjiri</div>
+    </a>
+
+    <a href="monquee.html" class="cat-box" aria-label="View details">
+        <div class="cat-img">
+        <img src="Monquee.jpeg" alt="Monquee" />
+        </div>
+        <div class="cat-name"><span class="initial">M</span>onquee</div>
+    </a>
+
+    <a href="zimmer.html" class="cat-box" aria-label="View details">
+        <div class="cat-img">
+        <img src="Zimmer.jpeg" alt="Zimmer" />
+        </div>
+        <div class="cat-name"><span class="initial">L</span>ucy</div>
+    </a>
+
+  
+</div>
+
 </body>
 </html>
+
