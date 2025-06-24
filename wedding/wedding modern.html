@@ -1,0 +1,545 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savia &amp; Ian - Wedding Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        .section-padding {
+            padding: 80px 0;
+        }
+        .image-placeholder {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px dashed #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-weight: 500;
+        }
+        .map-placeholder {
+            background: linear-gradient(135deg, #e8f5e8 0%, #b8e6b8 100%);
+            border: 2px dashed #68d391;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38a169;
+            font-weight: 500;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #d69e2e;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+    </style></head>
+<body class="font-poppins scroll-smooth">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white shadow-md z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="font-playfair text-2xl font-bold text-purple-800">S &amp; I</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-purple-600 transition-colors">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-purple-600 transition-colors">About</a>
+                    <a href="#details" class="text-gray-700 hover:text-purple-600 transition-colors">Wedding Details</a>
+                    <a href="#accommodation" class="text-gray-700 hover:text-purple-600 transition-colors">Accommodation</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-purple-600 transition-colors">Gallery</a>
+                    <a href="#rsvp" class="text-gray-700 hover:text-purple-600 transition-colors">RSVP</a>
+                </div>
+                <div class="md:hidden">
+                    <button onclick="toggleMenu()" class="text-gray-700">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden mt-4 space-y-2 hidden">
+                <a href="#home" class="block text-gray-700 hover:text-purple-600 transition-colors">Home</a>
+                <a href="#about" class="block text-gray-700 hover:text-purple-600 transition-colors">About</a>
+                <a href="#details" class="block text-gray-700 hover:text-purple-600 transition-colors">Wedding Details</a>
+                <a href="#accommodation" class="block text-gray-700 hover:text-purple-600 transition-colors">Accommodation</a>
+                <a href="#gallery" class="block text-gray-700 hover:text-purple-600 transition-colors">Gallery</a>
+                <a href="#rsvp" class="block text-gray-700 hover:text-purple-600 transition-colors">RSVP</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="container mx-auto px-6 text-center relative z-10 fade-in" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s, transform 0.6s;">
+            <h1 class="font-playfair text-6xl md:text-8xl font-bold mb-4">Savia &amp; Ian</h1>
+            <p class="text-xl md:text-2xl mb-8 font-light">are getting married</p>
+            <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-lg p-6 inline-block mb-8">
+                <p class="text-2xl font-semibold">June 15, 2024</p>
+                <p class="text-lg">Save the Date</p>
+            </div>
+            <div class="space-x-4">
+                <a href="#details" class="bg-white text-purple-800 px-8 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 inline-block">Wedding Details</a>
+                <a href="#rsvp" class="border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-purple-800 transition-all duration-300 inline-block">RSVP</a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Story</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="font-playfair text-3xl font-bold text-purple-800 mb-4">How We Met</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            Savia and Ian first crossed paths at a mutual friend's birthday party in the summer of 2019. 
+                            What started as a casual conversation about their shared love for hiking and photography 
+                            quickly blossomed into something beautiful.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            After countless adventures, late-night talks, and supporting each other through life's 
+                            ups and downs, Ian proposed during a sunset hike at their favorite trail - the same place 
+                            where they had their first date.
+                        </p>
+                    </div>
+                </div>
+                <div class="fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-purple-100 rounded-lg p-6 text-center">
+                            <i class="fas fa-heart text-purple-600 text-3xl mb-3"></i>
+                            <h4 class="font-semibold text-gray-800">First Date</h4>
+                            <p class="text-gray-600 text-sm">Mountain Trail Hike</p>
+                        </div>
+                        <div class="bg-purple-100 rounded-lg p-6 text-center">
+                            <i class="fas fa-ring text-purple-600 text-3xl mb-3"></i>
+                            <h4 class="font-semibold text-gray-800">Engaged</h4>
+                            <p class="text-gray-600 text-sm">December 2023</p>
+                        </div>
+                        <div class="bg-purple-100 rounded-lg p-6 text-center">
+                            <i class="fas fa-home text-purple-600 text-3xl mb-3"></i>
+                            <h4 class="font-semibold text-gray-800">Living</h4>
+                            <p class="text-gray-600 text-sm">San Francisco</p>
+                        </div>
+                        <div class="bg-purple-100 rounded-lg p-6 text-center">
+                            <i class="fas fa-calendar text-purple-600 text-3xl mb-3"></i>
+                            <h4 class="font-semibold text-gray-800">Wedding</h4>
+                            <p class="text-gray-600 text-sm">June 15, 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wedding Details Section -->
+    <section id="details" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">Wedding Details</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-8 h-full">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-church text-purple-600 text-4xl mb-4"></i>
+                            <h3 class="font-playfair text-2xl font-bold text-gray-800 mb-2">Ceremony</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar-alt text-purple-600 w-6"></i>
+                                <span class="ml-3 text-gray-700">Saturday, June 15, 2024</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-purple-600 w-6"></i>
+                                <span class="ml-3 text-gray-700">4:00 PM</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-purple-600 w-6 mt-1"></i>
+                                <div class="ml-3">
+                                    <p class="text-gray-700 font-semibold">Garden Chapel</p>
+                                    <p class="text-gray-600">123 Blossom Lane</p>
+                                    <p class="text-gray-600">Napa Valley, CA 94559</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-8 h-full">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-glass-cheers text-purple-600 text-4xl mb-4"></i>
+                            <h3 class="font-playfair text-2xl font-bold text-gray-800 mb-2">Reception</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar-alt text-purple-600 w-6"></i>
+                                <span class="ml-3 text-gray-700">Saturday, June 15, 2024</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-purple-600 w-6"></i>
+                                <span class="ml-3 text-gray-700">6:00 PM - 11:00 PM</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-purple-600 w-6 mt-1"></i>
+                                <div class="ml-3">
+                                    <p class="text-gray-700 font-semibold">Vineyard Pavilion</p>
+                                    <p class="text-gray-600">456 Wine Country Road</p>
+                                    <p class="text-gray-600">Napa Valley, CA 94559</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg max-w-2xl mx-auto">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-yellow-600 text-xl mr-3 mt-1"></i>
+                        <div class="text-left">
+                            <h4 class="font-semibold text-gray-800 mb-2">Dress Code</h4>
+                            <p class="text-gray-700">Semi-formal attire. Think garden party chic! Ladies, please avoid wearing white.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accommodation Section -->
+    <section id="accommodation" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">Accommodation</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">We've arranged special rates at these wonderful hotels for our guests. Please book by May 1st to secure the group rate.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-blue-400 flex items-center justify-center">
+                        <i class="fas fa-hotel text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-playfair text-xl font-bold text-gray-800 mb-2">Napa Valley Resort</h3>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-map-marker-alt w-4"></i>
+                                <span class="ml-2 text-sm">2 miles from venue</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-dollar-sign w-4"></i>
+                                <span class="ml-2 text-sm">$180/night (Group Rate)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-phone w-4"></i>
+                                <span class="ml-2 text-sm">(707) 555-0123</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-4">Luxury resort with spa, pool, and vineyard views. Mention "Savia &amp; Ian Wedding" for special rate.</p>
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">Book Now</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-blue-400 flex items-center justify-center">
+                        <i class="fas fa-bed text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-playfair text-xl font-bold text-gray-800 mb-2">Garden Inn &amp; Suites</h3>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-map-marker-alt w-4"></i>
+                                <span class="ml-2 text-sm">1.5 miles from venue</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-dollar-sign w-4"></i>
+                                <span class="ml-2 text-sm">$120/night (Group Rate)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-phone w-4"></i>
+                                <span class="ml-2 text-sm">(707) 555-0456</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-4">Charming boutique hotel with complimentary breakfast and shuttle service to venue.</p>
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">Book Now</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="h-48 bg-gradient-to-br from-yellow-400 to-red-400 flex items-center justify-center">
+                        <i class="fas fa-home text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-playfair text-xl font-bold text-gray-800 mb-2">Cozy B&amp;B</h3>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-map-marker-alt w-4"></i>
+                                <span class="ml-2 text-sm">3 miles from venue</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-dollar-sign w-4"></i>
+                                <span class="ml-2 text-sm">$95/night (Group Rate)</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-phone w-4"></i>
+                                <span class="ml-2 text-sm">(707) 555-0789</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-4">Intimate bed &amp; breakfast with personalized service and homemade breakfast.</p>
+                        <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg max-w-3xl mx-auto">
+                    <div class="flex items-start">
+                        <i class="fas fa-shuttle-van text-blue-600 text-xl mr-3 mt-1"></i>
+                        <div class="text-left">
+                            <h4 class="font-semibold text-gray-800 mb-2">Transportation</h4>
+                            <p class="text-gray-700">Complimentary shuttle service will be provided from all recommended hotels to the venue. Shuttles will run every 30 minutes starting at 3:30 PM.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">Gallery</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="text-gray-600">A glimpse into our journey together</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="bg-gradient-to-br from-purple-200 to-pink-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-camera text-purple-400 text-3xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-blue-200 to-purple-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-heart text-blue-400 text-3xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-green-200 to-blue-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-mountain text-green-400 text-3xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-yellow-200 to-orange-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-sun text-yellow-400 text-3xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-pink-200 to-red-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-ring text-pink-400 text-3xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-200 to-purple-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-kiss text-indigo-400 text-3xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-teal-200 to-blue-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-tree text-teal-400 text-3xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-orange-200 to-red-200 aspect-square rounded-lg flex items-center justify-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <i class="fas fa-glass-cheers text-orange-400 text-3xl"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-20 bg-gradient-to-br from-purple-600 to-blue-600 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-4">RSVP</h2>
+                <div class="w-24 h-1 bg-white mx-auto mb-6"></div>
+                <p class="text-lg opacity-90">Please respond by May 1st, 2024</p>
+            </div>
+            <div class="max-w-2xl mx-auto">
+                <form class="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-8 fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">First Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 border border-white border-opacity-30 focus:border-opacity-60 focus:outline-none" placeholder="Your first name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Last Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 border border-white border-opacity-30 focus:border-opacity-60 focus:outline-none" placeholder="Your last name">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 border border-white border-opacity-30 focus:border-opacity-60 focus:outline-none" placeholder="your.email@example.com">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2">Will you be attending?</label>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="radio" name="attending" value="yes" class="mr-3">
+                                <span>Yes, I'll be there! 🎉</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="attending" value="no" class="mr-3">
+                                <span>Sorry, can't make it 😢</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2">Number of Guests</label>
+                        <select class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:border-opacity-60 focus:outline-none">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2">Dietary Restrictions</label>
+                        <textarea class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 border border-white border-opacity-30 focus:border-opacity-60 focus:outline-none h-24" placeholder="Please let us know about any dietary restrictions or allergies"></textarea>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2">Special Message</label>
+                        <textarea class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 border border-white border-opacity-30 focus:border-opacity-60 focus:outline-none h-24" placeholder="Share your excitement or send us a message!"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-white text-purple-600 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300">
+                        Send RSVP
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800 mb-4">Questions?</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto mb-6"></div>
+                <p class="text-gray-600">We're here to help make your experience perfect</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div class="text-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <i class="fas fa-user-friends text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-gray-800 mb-2">Wedding Party</h3>
+                    <p class="text-gray-600 mb-4">Questions about the ceremony or reception</p>
+                    <a href="mailto:wedding@saviaandian.com" class="text-purple-600 hover:text-purple-800 transition-colors">wedding@saviaandian.com</a>
+                </div>
+                <div class="text-center fade-in" style="opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <i class="fas fa-concierge-bell text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-gray-800 mb-2">Accommodations</h3>
+                    <p class="text-gray-600 mb-4">Help with hotel bookings or transportation</p>
+                    <a href="mailto:stay@saviaandian.com" class="text-purple-600 hover:text-purple-800 transition-colors">stay@saviaandian.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <h3 class="font-playfair text-3xl font-bold mb-2">Savia &amp; Ian</h3>
+                <p class="text-gray-400">June 15, 2024 • Napa Valley, CA</p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-facebook text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-envelope text-2xl"></i>
+                </a>
+            </div>
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-400 text-sm">Made with ❤️ for our special day</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-opacity-95');
+            } else {
+                nav.classList.remove('bg-opacity-95');
+            }
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your RSVP! We will be in touch soon.');
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+
+    </body></html>

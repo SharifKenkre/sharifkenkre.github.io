@@ -1,0 +1,582 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savia &amp; Ian</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        .section-padding {
+            padding: 80px 0;
+        }
+        .image-placeholder {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px dashed #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-weight: 500;
+        }
+        .map-placeholder {
+            background: linear-gradient(135deg, #e8f5e8 0%, #b8e6b8 100%);
+            border: 2px dashed #68d391;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38a169;
+            font-weight: 500;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #d69e2e;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-lg z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="font-heading text-2xl font-bold text-gray-800">S &amp; I</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#cover" class="nav-link text-gray-600 hover:text-yellow-600">Home</a>
+                    <a href="#about" class="nav-link text-gray-600 hover:text-yellow-600">About</a>
+                    <a href="#venue" class="nav-link text-gray-600 hover:text-yellow-600">Venue</a>
+                    <a href="#itinerary" class="nav-link text-gray-600 hover:text-yellow-600">Itinerary</a>
+                    <a href="#accommodation" class="nav-link text-gray-600 hover:text-yellow-600">Accommodation</a>
+                    <a href="#rsvp" class="nav-link text-gray-600 hover:text-yellow-600">RSVP</a>
+                    <a href="#faq" class="nav-link text-gray-600 hover:text-yellow-600">FAQ</a>
+                </div>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cover Section -->
+    <section id="cover" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-blue-50">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <div class="image-placeholder w-80 h-80 mx-auto rounded-full mb-12">
+                    <div class="text-center">
+                        <i class="fas fa-camera text-4xl mb-4"></i>
+                        <div class="text-lg">Cover Photo Placeholder</div>
+                        <div class="text-sm opacity-75">Replace with couple photo</div>
+                    </div>
+                </div>
+                <h1 class="font-heading text-6xl md:text-8xl font-bold text-gray-800 mb-6">
+                    Savia <span class="text-purple-600">&amp;</span> Ian
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-8">
+                    We're getting married!
+                </p>
+                <div class="bg-white rounded-lg shadow-lg p-8 mb-8 inline-block">
+                    <div class="text-lg text-gray-600 mb-2">Save the Date</div>
+                    <div class="font-heading text-3xl font-bold text-gray-800">
+                        [Wedding Date]
+                    </div>
+                    <div class="text-lg text-gray-600 mt-2">
+                        [Venue Location]
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        [Welcome message placeholder - Add your personal welcome message here for your guests]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Story</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                    <div class="image-placeholder h-96 rounded-lg">
+                        <div class="text-center">
+                            <i class="fas fa-heart text-4xl mb-4"></i>
+                            <div class="text-lg">First Meeting Photo</div>
+                            <div class="text-sm opacity-75">Add photo from when you first met</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-6">How We Met</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            [Add your story about how you first met. Share the details that make your love story unique and special. This could include where you met, what drew you to each other, and your first impressions.]
+                        </p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 md:order-1">
+                        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-6">The Proposal</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            [Share the story of your engagement. Tell your guests about this special moment - where it happened, how it happened, and what made it perfect. This is your chance to get your guests excited about your upcoming celebration.]
+                        </p>
+                    </div>
+                    <div class="image-placeholder h-96 rounded-lg order-1 md:order-2">
+                        <div class="text-center">
+                            <i class="fas fa-ring text-4xl mb-4"></i>
+                            <div class="text-lg">Engagement Photo</div>
+                            <div class="text-sm opacity-75">Add engagement or proposal photo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Section -->
+    <section id="venue" class="section-padding bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Venue</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <div class="image-placeholder h-64">
+                        <div class="text-center">
+                            <i class="fas fa-building text-4xl mb-4"></i>
+                            <div class="text-lg">Venue Photo</div>
+                            <div class="text-sm opacity-75">Add photo of your wedding venue</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-heading text-3xl font-bold text-gray-800 mb-4">[Venue Name]</h3>
+                        <p class="text-lg text-gray-600 mb-6">
+                            [Add exciting information about your venue. Describe what makes this location special for your wedding day. Include any interesting history, beautiful features, or reasons why you chose this particular place.]
+                        </p>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-map-marker-alt mr-3"></i>
+                            <span>[Venue Address]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">Getting There</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="map-placeholder h-96">
+                        <div class="text-center">
+                            <i class="fas fa-map text-4xl mb-4"></i>
+                            <div class="text-lg">Interactive Map Placeholder</div>
+                            <div class="text-sm opacity-75">Replace with Google Maps embed or interactive map</div>
+                            <div class="text-xs mt-2 opacity-50">
+                                Use: &lt;iframe src="google-maps-embed-url"&gt;&lt;/iframe&gt;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-heading text-2xl font-bold text-gray-800 mb-4">Directions</h3>
+                        <p class="text-gray-600 mb-4">
+                            [Add helpful directions and transportation information for your guests. Include parking details, public transport options, and any special instructions.]
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">By Car</h4>
+                                <p class="text-sm text-gray-600">[Driving directions and parking info]</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Public Transport</h4>
+                                <p class="text-sm text-gray-600">[Public transport options]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Itinerary Section -->
+    <section id="itinerary" class="section-padding bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">Wedding Itinerary</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-purple-100 rounded-full p-4 flex-shrink-0">
+                                <i class="fas fa-church text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-heading text-2xl font-bold text-gray-800 mb-2">Ceremony</h3>
+                                <div class="text-purple-600 font-semibold mb-2">[Date] at [Time]</div>
+                                <div class="text-gray-600 mb-2">[Ceremony Location]</div>
+                                <p class="text-gray-600">[Ceremony details and dress code]</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-purple-100 rounded-full p-4 flex-shrink-0">
+                                <i class="fas fa-camera text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-heading text-2xl font-bold text-gray-800 mb-2">Photo Session</h3>
+                                <div class="text-purple-600 font-semibold mb-2">[Time]</div>
+                                <div class="text-gray-600 mb-2">[Location]</div>
+                                <p class="text-gray-600">[Photo session details]</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-purple-100 rounded-full p-4 flex-shrink-0">
+                                <i class="fas fa-glass-cheers text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-heading text-2xl font-bold text-gray-800 mb-2">Reception</h3>
+                                <div class="text-purple-600 font-semibold mb-2">[Date] at [Time]</div>
+                                <div class="text-gray-600 mb-2">[Reception Location]</div>
+                                <p class="text-gray-600">[Reception details, dinner, dancing, dress code]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">RSVP</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-12">
+                    <i class="fas fa-envelope text-6xl text-purple-600 mb-8"></i>
+                    <h3 class="font-heading text-3xl font-bold text-gray-800 mb-6">We Can't Wait to Celebrate With You!</h3>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Please let us know if you'll be able to join us for our special day. We're excited to celebrate with our loved ones!
+                    </p>
+                    <div class="mb-8">
+                        <div class="text-gray-600 mb-2">Please respond by</div>
+                        <div class="font-heading text-2xl font-bold text-purple-600">[RSVP Deadline]</div>
+                    </div>
+                    <a href="#" class="btn-primary inline-block px-8 py-4 text-white font-semibold rounded-lg">
+                        RSVP Now
+                    </a>
+                    <p class="text-sm text-gray-500 mt-4">
+                        This button will link to your RSVP form
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accommodation Section -->
+    <section id="accommodation" class="section-padding bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">Accommodation</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <p class="text-lg text-gray-600">
+                        For your convenience, we've arranged accommodation options near our venue.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                        <div class="image-placeholder h-48">
+                            <div class="text-center">
+                                <i class="fas fa-hotel text-3xl mb-2"></i>
+                                <div>Hotel Photo 1</div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold text-gray-800 mb-2">[Hotel Name 1]</h3>
+                            <div class="flex items-center text-gray-600 mb-3">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span class="text-sm">[Distance from venue]</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">[Hotel description and amenities]</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-semibold text-purple-600">[Price/night]</span>
+                                <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-semibold">
+                                    Book Now <i class="fas fa-external-link-alt ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                        <div class="image-placeholder h-48">
+                            <div class="text-center">
+                                <i class="fas fa-hotel text-3xl mb-2"></i>
+                                <div>Hotel Photo 2</div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold text-gray-800 mb-2">[Hotel Name 2]</h3>
+                            <div class="flex items-center text-gray-600 mb-3">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span class="text-sm">[Distance from venue]</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">[Hotel description and amenities]</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-semibold text-purple-600">[Price/night]</span>
+                                <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-semibold">
+                                    Book Now <i class="fas fa-external-link-alt ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                        <div class="image-placeholder h-48">
+                            <div class="text-center">
+                                <i class="fas fa-hotel text-3xl mb-2"></i>
+                                <div>Hotel Photo 3</div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold text-gray-800 mb-2">[Hotel Name 3]</h3>
+                            <div class="flex items-center text-gray-600 mb-3">
+                                <i class="fas fa-map-marker-alt mr-2"></i>
+                                <span class="text-sm">[Distance from venue]</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">[Hotel description and amenities]</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-semibold text-purple-600">[Price/night]</span>
+                                <a href="#" class="text-purple-600 hover:text-purple-800 text-sm font-semibold">
+                                    Book Now <i class="fas fa-external-link-alt ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 inline-block">
+                        <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+                        <span class="text-yellow-800">
+                            Please mention you're attending Savia &amp; Ian's wedding when booking for special rates.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registry Section -->
+    <section id="registry" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">Registry</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-12">
+                    <i class="fas fa-gift text-6xl text-purple-600 mb-8"></i>
+                    <h3 class="font-heading text-3xl font-bold text-gray-800 mb-6">Wedding Registry</h3>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Your presence at our wedding is the greatest gift of all. However, if you would like to honor us with a gift, we've registered at a few of our favorite places.
+                    </p>
+                    <div class="space-y-4">
+                        <a href="#" class="btn-primary inline-block px-8 py-3 text-white font-semibold rounded-lg mr-4 mb-4">
+                            <i class="fas fa-external-link-alt mr-2"></i>
+                            Registry Link 1
+                        </a>
+                        <a href="#" class="btn-primary inline-block px-8 py-3 text-white font-semibold rounded-lg mr-4 mb-4">
+                            <i class="fas fa-external-link-alt mr-2"></i>
+                            Registry Link 2
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-6">
+                        These buttons will link to your external registry pages
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section-padding bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl md:text-5xl font-bold text-gray-800 mb-4">FAQ</h2>
+                <div class="w-24 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 mb-4">What should I wear?</h3>
+                        <p class="text-gray-600">[Add dress code information and any specific guidance about attire for your wedding venue and season]</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 mb-4">What time should I arrive?</h3>
+                        <p class="text-gray-600">[Provide guidance on arrival times for ceremony and reception]</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 mb-4">Is parking available?</h3>
+                        <p class="text-gray-600">[Include parking information and any alternative transportation options]</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 mb-4">Can I bring a plus one?</h3>
+                        <p class="text-gray-600">[Clarify your plus one policy and how guests should indicate this in their RSVP]</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 mb-4">Will there be food allergies accommodated?</h3>
+                        <p class="text-gray-600">[Information about dietary restrictions and how guests can communicate their needs]</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="font-heading text-xl font-bold text-gray-800 mb-4">Who can I contact with questions?</h3>
+                        <div class="text-gray-600">
+                            <p class="mb-4">[Contact information for any questions about the wedding]</p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">Wedding Coordinator</h4>
+                                    <p class="text-sm">[Name]</p>
+                                    <p class="text-sm">[Email]</p>
+                                    <p class="text-sm">[Phone]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">Bride &amp; Groom</h4>
+                                    <p class="text-sm">[Email]</p>
+                                    <p class="text-sm">[Phone]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="font-heading text-3xl font-bold mb-4">Savia &amp; Ian</div>
+            <p class="text-gray-400 mb-6">Thank you for being part of our special day</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition">
+                    <i class="fab fa-facebook text-2xl"></i>
+                </a>
+                <a href="mailto:" class="text-gray-400 hover:text-white transition">
+                    <i class="fas fa-envelope text-2xl"></i>
+                </a>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-gray-400 text-sm">
+                © 2024 Savia &amp; Ian Wedding Website
+            </div>
+        </div>
+    </footer>
+
+     <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-opacity-95');
+            } else {
+                nav.classList.remove('bg-opacity-95');
+            }
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your RSVP! We will be in touch soon.');
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+
+    </body></html>
