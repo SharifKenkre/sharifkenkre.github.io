@@ -1,0 +1,343 @@
+<html lang="en"><head>
+    <!-- Meta tags for proper HTML5 document structure and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savia &amp; Ian - Our Wedding</title>
+    
+    <!-- Tailwind CSS for utility-first styling and responsive design -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for beautiful icons throughout the site -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts for elegant typography - choosing fonts suitable for wedding websites -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body class="font-sans bg-white">
+    
+    <!-- Loading overlay that appears initially and fades out -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white z-50 flex items-center justify-center" style="opacity: 0; display: none;">
+        <!-- Loading spinner animation matching the original site -->
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-primary" style="border-color: var(--primary-color)"></div>
+    </div>
+    
+    <!-- Fixed navigation header with smooth background transition on scroll -->
+    <nav id="navbar" class="fixed top-0 w-full z-40 transition-all duration-300 bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo/Brand with couple names -->
+                <div class="font-serif text-2xl font-bold text-primary">
+                    Savia &amp; Ian
+                </div>
+                
+                <!-- Desktop navigation menu -->
+                <div class="hidden md:flex space-x-8">
+                    <!-- Navigation links with smooth scrolling to sections -->
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary transition-colors">Home</a>
+                    <a href="#story" class="nav-link text-gray-700 hover:text-primary transition-colors">Our Story</a>
+                    <a href="#details" class="nav-link text-gray-700 hover:text-primary transition-colors">Details</a>
+                    <a href="#schedule" class="nav-link text-gray-700 hover:text-primary transition-colors">Schedule</a>
+                    <a href="#location" class="nav-link text-gray-700 hover:text-primary transition-colors">Location</a>
+                    <a href="#rsvp" class="nav-link text-gray-700 hover:text-primary transition-colors">RSVP</a>
+                </div>
+                
+                <!-- Mobile menu toggle button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile navigation menu (hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-primary transition-colors">Home</a>
+                <a href="#story" class="block py-2 text-gray-700 hover:text-primary transition-colors">Our Story</a>
+                <a href="#details" class="block py-2 text-gray-700 hover:text-primary transition-colors">Details</a>
+                <a href="#schedule" class="block py-2 text-gray-700 hover:text-primary transition-colors">Schedule</a>
+                <a href="#location" class="block py-2 text-gray-700 hover:text-primary transition-colors">Location</a>
+                <a href="#rsvp" class="block py-2 text-gray-700 hover:text-primary transition-colors">RSVP</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero section with full viewport height and centered content -->
+    <section id="home" class="hero-section flex items-center justify-center text-center">
+        <div class="container mx-auto px-6">
+            <!-- Main couple names with elegant typography -->
+            <h1 class="font-serif text-6xl md:text-8xl font-bold text-gray-800 mb-4 fade-in">
+                Savia <span class="text-primary">&amp;</span> Ian
+            </h1>
+            
+            <!-- Wedding date placeholder -->
+            <p class="text-xl md:text-2xl text-gray-600 mb-8 fade-in" style="animation-delay: 0.3s">
+                [Wedding Date] • [Wedding Location]
+            </p>
+            
+            <!-- Call-to-action button -->
+            <a href="#rsvp" class="btn-primary fade-in" style="animation-delay: 0.6s">
+                RSVP Now
+            </a>
+            
+            <!-- Decorative hearts animation -->
+            <div class="mt-12 fade-in" style="animation-delay: 0.9s">
+                <i class="fas fa-heart text-primary text-2xl mx-2 animate-pulse"></i>
+                <i class="fas fa-heart text-primary text-xl mx-2 animate-pulse" style="animation-delay: 0.5s"></i>
+                <i class="fas fa-heart text-primary text-2xl mx-2 animate-pulse" style="animation-delay: 1s"></i>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Our Story section with alternating content layout -->
+    <section id="story" class="section-padding bg-secondary">
+        <div class="container mx-auto px-6">
+            <!-- Section heading -->
+            <div class="text-center mb-16 fade-in">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Love Story</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <!-- Story timeline with placeholder content -->
+            <div class="max-w-4xl mx-auto fade-in">
+                <!-- First story card -->
+                <div class="card mb-8 fade-in">
+                    <div class="md:flex items-center">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                                <!-- Placeholder for couple photo -->
+                                <i class="fas fa-heart text-6xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3 md:pl-8">
+                            <h3 class="font-serif text-2xl font-bold text-gray-800 mb-4">How We Met</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                [Your story content will go here. Describe how you two first met, the circumstances, and what drew you to each other.]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Second story card with reversed layout -->
+                <div class="card mb-8 fade-in">
+                    <div class="md:flex items-center">
+                        <div class="md:w-2/3 md:pr-8 order-2 md:order-1">
+                            <h3 class="font-serif text-2xl font-bold text-gray-800 mb-4">The Proposal</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                [Share the proposal story here. How did it happen? Where? What made it special and memorable for both of you?]
+                            </p>
+                        </div>
+                        <div class="md:w-1/3 mb-4 md:mb-0 order-1 md:order-2">
+                            <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                                <!-- Placeholder for proposal photo -->
+                                <i class="fas fa-ring text-6xl text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Wedding details section -->
+    <section id="details" class="section-padding">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-800 mb-4">Wedding Details</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <!-- Details grid layout -->
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Ceremony details card -->
+                <div class="card text-center hover-scale">
+                    <i class="fas fa-church text-4xl text-primary mb-4"></i>
+                    <h3 class="font-serif text-2xl font-bold text-gray-800 mb-4">Ceremony</h3>
+                    <p class="text-gray-600 mb-2"><strong>Date:</strong> [Wedding Date]</p>
+                    <p class="text-gray-600 mb-2"><strong>Time:</strong> [Ceremony Time]</p>
+                    <p class="text-gray-600 mb-2"><strong>Venue:</strong> [Ceremony Venue]</p>
+                    <p class="text-gray-600"><strong>Address:</strong> [Venue Address]</p>
+                </div>
+                
+                <!-- Reception details card -->
+                <div class="card text-center hover-scale">
+                    <i class="fas fa-glass-cheers text-4xl text-primary mb-4"></i>
+                    <h3 class="font-serif text-2xl font-bold text-gray-800 mb-4">Reception</h3>
+                    <p class="text-gray-600 mb-2"><strong>Date:</strong> [Reception Date]</p>
+                    <p class="text-gray-600 mb-2"><strong>Time:</strong> [Reception Time]</p>
+                    <p class="text-gray-600 mb-2"><strong>Venue:</strong> [Reception Venue]</p>
+                    <p class="text-gray-600"><strong>Address:</strong> [Reception Address]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Schedule/Timeline section -->
+    <section id="schedule" class="section-padding bg-secondary">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-800 mb-4">Wedding Day Schedule</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <!-- Timeline layout -->
+            <div class="max-w-3xl mx-auto">
+                <!-- Timeline item template repeated for each event -->
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg mr-6">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="card flex-1">
+                        <h3 class="font-serif text-xl font-bold text-gray-800 mb-2">[Time] - [Event Name]</h3>
+                        <p class="text-gray-600">[Event description and details]</p>
+                    </div>
+                </div>
+                
+                <!-- Additional timeline items (structure repeats) -->
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg mr-6">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="card flex-1">
+                        <h3 class="font-serif text-xl font-bold text-gray-800 mb-2">[Time] - [Event Name]</h3>
+                        <p class="text-gray-600">[Event description and details]</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg mr-6">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="card flex-1">
+                        <h3 class="font-serif text-xl font-bold text-gray-800 mb-2">[Time] - [Event Name]</h3>
+                        <p class="text-gray-600">[Event description and details]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Location section with map placeholder -->
+    <section id="location" class="section-padding">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-800 mb-4">Location &amp; Directions</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Map placeholder -->
+                <div class="w-full h-96 bg-gray-200 rounded-lg mb-8 flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-map-marker-alt text-6xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">[Interactive map will be embedded here]</p>
+                    </div>
+                </div>
+                
+                <!-- Location details -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="font-serif text-2xl font-bold text-gray-800 mb-4">Venue Information</h3>
+                        <p class="text-gray-600 mb-2"><strong>Name:</strong> [Venue Name]</p>
+                        <p class="text-gray-600 mb-2"><strong>Address:</strong> [Full Address]</p>
+                        <p class="text-gray-600 mb-4"><strong>Phone:</strong> [Venue Phone]</p>
+                        <a href="#" class="btn-primary">Get Directions</a>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="font-serif text-2xl font-bold text-gray-800 mb-4">Travel &amp; Accommodation</h3>
+                        <p class="text-gray-600 mb-4">
+                            [Information about nearby hotels, transportation options, and travel recommendations for guests]
+                        </p>
+                        <a href="#" class="btn-primary">View Hotels</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- RSVP section with form -->
+    <section id="rsvp" class="section-padding bg-primary text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">RSVP</h2>
+                <div class="w-24 h-1 bg-white mx-auto mb-4"></div>
+                <p class="text-xl">Please confirm your attendance by [RSVP Date]</p>
+            </div>
+            
+            <!-- RSVP form -->
+            <div class="max-w-2xl mx-auto">
+                <form class="space-y-6">
+                    <!-- Guest name input -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Full Name(s)</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 focus:ring-2 focus:ring-white focus:border-transparent" placeholder="Enter your full name(s)">
+                    </div>
+                    
+                    <!-- Email input -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 focus:ring-2 focus:ring-white focus:border-transparent" placeholder="Enter your email">
+                    </div>
+                    
+                    <!-- Attendance selection -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Will you be attending?</label>
+                        <select class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 focus:ring-2 focus:ring-white focus:border-transparent">
+                            <option>Please select</option>
+                            <option>Yes, I'll be there!</option>
+                            <option>Sorry, can't make it</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Number of guests -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Number of Guests</label>
+                        <select class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 focus:ring-2 focus:ring-white focus:border-transparent">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Special requirements textarea -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Special Requirements or Message</label>
+                        <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 focus:ring-2 focus:ring-white focus:border-transparent" placeholder="Any dietary restrictions or special requirements?"></textarea>
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <div class="text-center">
+                        <button type="submit" class="bg-white text-primary px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                            Send RSVP
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer section -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <!-- Couple names in footer -->
+            <h3 class="font-serif text-3xl font-bold mb-4">Savia &amp; Ian</h3>
+            
+            <!-- Social media links placeholder -->
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-2xl hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-2xl hover:text-primary transition-colors"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-2xl hover:text-primary transition-colors"><i class="fab fa-twitter"></i></a>
+            </div>
+            
+            <!-- Copyright notice -->
+            <p class="text-gray-400">© 2025 Savia &amp; Ian. All rights reserved.</p>
+            <p class="text-gray-400 mt-2">Made with <i class="fas fa-heart text-red-500"></i> for our special day</p>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+
+    </body></html>
