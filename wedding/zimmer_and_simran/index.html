@@ -1,0 +1,445 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Website - Zimmer &amp; Simran</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Playfair+Display:wght@400;600&amp;family=Open+Sans:wght@300;400;600&amp;display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white shadow-lg z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#cover" class="font-script text-3xl text-primary">Z &amp; S</a>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#cover" class="text-gray-700 hover:text-primary transition-colors">Cover</a>
+                    <a href="#about" class="text-gray-700 hover:text-primary transition-colors">About</a>
+                    <a href="#venue" class="text-gray-700 hover:text-primary transition-colors">Venue</a>
+                    <a href="#map" class="text-gray-700 hover:text-primary transition-colors">Map</a>
+                    <a href="#itinerary" class="text-gray-700 hover:text-primary transition-colors">Itinerary</a>
+                    <a href="#registry" class="text-gray-700 hover:text-primary transition-colors">Registry</a>
+                    <a href="#faq" class="text-gray-700 hover:text-primary transition-colors">FAQ</a>
+                </div>
+                
+                <button class="md:hidden" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+            
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="pb-4 space-y-2">
+                    <a href="#cover" class="block text-center py-2 text-gray-700 hover:text-primary">Cover</a>
+                    <a href="#about" class="block text-center py-2 text-gray-700 hover:text-primary">About</a>
+                    <a href="#venue" class="block text-center py-2 text-gray-700 hover:text-primary">Venue</a>
+                    <a href="#map" class="block text-center py-2 text-gray-700 hover:text-primary">Map</a>
+                    <a href="#itinerary" class="block text-center py-2 text-gray-700 hover:text-primary">Itinerary</a>
+                    <a href="#registry" class="block text-center py-2 text-gray-700 hover:text-primary">Registry</a>
+                    <a href="#faq" class="block text-center py-2 text-gray-700 hover:text-primary">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="cover" class="hero-bg min-h-screen flex items-center justify-center text-white text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="font-script text-6xl md:text-8xl mb-6">Zimmer &amp; Simran</h1>
+            <p class="font-serif text-2xl md:text-4xl mb-6">June 27th, 2025</p>
+            <p class="font-sans text-lg md:text-xl mb-8">
+                <i class="fas fa-map-marker-alt mr-2"></i>
+                Grand Mercure Goa Candolim
+            </p>
+            <a href="#RSVP" class="inline-block bg-white text-gray-800 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors">
+                RSVP Now
+            </a>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <a href="#welcome" class="text-white text-3xl animate-bounce">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">We're getting purr-ied!</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center">
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                    Welcome to the most paw-some event of the year! We're absolutely thrilled to share the joyous occasion of Zimmer and Simran's union with all our favorite humans.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                    On June 27, 2025, our beloved feline friends, Zimmer and Simran, will be tying the knot (or rather, sharing a very special head boop) in beautiful Goa.
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                    Join us for a celebration filled with love, purrs, and perhaps a little catnip!
+                    </p>
+                </div>
+                
+                <div class="lg:w-1/2 text-center">
+                    <img src="assets/welcome.jpg" alt="Welcome" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="about" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">The Happy Couple</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center order-2 lg:order-1">
+                    <img src="" alt="Zimmer and Simran" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+                </div>
+                
+                <div class="lg:w-1/2 text-center order-1 lg:order-2">
+                    <p class="text-gray-600 text-lg leading-relaxed">
+
+                      <b> Zimmer: </b>The adventurous and charming tabby with a heart of gold (and a penchant for knocking things off shelves).
+                      <br>
+                      <b> Simran: </b>The elegant and graceful calico who rules the roost with a gentle paw and a captivating gaze.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Section -->
+    <section id="venue" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">Grand Mercure</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center">
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                       The Grand Mercure in Vodlemol Cacora, Goa, is a hotel known for its beautiful settings, which often makes it a popular choice for weddings and special events. It likely offers a lovely atmosphere, comfortable accommodations, and various facilities that would be perfect for Zimmer and Simran's big day, ensuring a memorable celebration in a picturesque location.
+                    </p>
+                </div>
+                
+                <div class="lg:w-1/2 text-center">
+                    <img src="https://www.ahstatic.com/photos/c2a7_ho_00_p_1024x768.jpg" alt="Grand Mercure" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">Directions & Travel</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center order-2 lg:order-1">
+                   <div class="map-container flex justify-center items-center py-8">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3844.321539579767!2d73.7930260739734!3d15.520884285081934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbfc1000e8ed8dd%3A0x1a0ef87ba34b15a3!2sGrand%20Mercure%20Goa%20Candolim!5e0!3m2!1sen!2sin!4v1751026336114!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+                </div>
+                
+                <div class="lg:w-1/2 text-center order-1 lg:order-2">
+                    <div class="space-y-6 text-gray-600">
+                        <p class="text-lg font-semibold">We're so excited for you to join Zimmer and Simran at the Grand Mercure in Goa!</p>
+                        
+                        <div>
+                            <p class="font-semibold text-primary mb-2">For Out-of-Town Guests:
+                                <br>
+                                Arriving by Air:</p>
+                            <p class="leading-relaxed">
+                                Fly into Goa International Airport (Dabolim Airport - GOI).
+                            
+                        </div>
+                        
+                        <div>
+                            <p class="font-semibold text-primary mb-2">Getting to Grand Mercure:</p>
+                            <p class="leading-relaxed">
+                                The hotel is about a 45-minute to 1-hour drive from the airport.
+                                <br>
+                                <b>Special Transport:</b> We're planning group transport; details coming soon.
+                                <br>
+                                <b>Taxis & Ride-Shares:</b> Easily available outside the airport.
+                                <br>
+                                <b>Accommodation:</b> The Grand Mercure offers rooms, and other hotels are nearby if you prefer.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <p class="font-semibold text-primary mb-2">For Local Guests:</p>
+                            <p class="leading-relaxed">
+                                The Grand Mercure in Vodlemol Cacora is easy to find.
+                                <br>
+                                <b>Driving:</b> Please use the map below for directions.
+                                <br>
+                                <b>Parking:</b> Ample on-site parking is available.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-primary mb-2">Need Help?</p>
+                            <p class="leading-relaxed">
+                                Please reach out to the happy couple's parents if you have any questions about travel or
+                                <a href="https://wa.me/qr/EPI6MQKBMJKTL1"> CLICK HERE.</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Itinerary Section -->
+    <section id="itinerary" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">Itinerary: The Grand Purr-ty!</h2>
+                <div class="section-divider"></div>
+                <p class="text-gray-600 text-lg mt-8">
+                    We're eagerly looking forward to celebrating with you! Below is the purr-fectly planned itinerary for Zimmer and Simran's wedding festivities at the Grand Mercure in Goa on June 27, 2025.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <!-- Welcome Party -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center card-hover">
+                    <i class="fas  text-4xl text-primary mb-6">🐾</i>
+                    <h3 class="font-serif text-xl mb-4"> "Paw-tographer"<br>Welcome & Mingle</h3>
+                    <p class="text-gray-600 mb-4">
+                        <strong>Thursday, June 26, 2025 (Evening before the wedding)</strong><br>
+                        6:00 PM - 8:00 PM
+                    </p>
+                    <p class="text-gray-600 mb-6 text-sm">
+                        Join us for a casual welcome gathering! This is a chance to meet fellow guests, enjoy some light nibbles (and maybe a few cat treats!), and get settled in before the main event. Bring your cameras for some early "paw-tography" with the almost-newlyweds!
+                    </p>
+                    <a href="https://www.google.com/maps/place/Great+Barton,+Bury+Saint+Edmunds+IP31+2RG,+UK/@52.2686139,0.7603473,1787m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47d84b55bcec9f8b:0x2b9f9287f4a957e2!8m2!3d52.2686149!4d0.770647!16s%2Fm%2F02pyt53?entry=ttu&amp;g_ep=EgoyMDI1MDYyMi4wIKXMDSoASAFQAw%3D%3D" class="inline-block bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-purple-700 transition-colors">
+                        📍 Lobby Lounge / Garden Area
+                    </a>
+                </div>
+                
+                <!-- Ceremony -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center card-hover">
+                    <i class="fas  text-4xl text-primary mb-6">💖</i>
+                    <h3 class="font-serif text-xl mb-4"> The "I Do... Meow!"<br>Ceremony</h3>
+                    <p class="text-gray-600 mb-4">
+                        <strong>Friday, June 27, 2025</strong><br>
+                        4:00 PM - 5:00 PM
+                    </p>
+                    <p class="text-gray-600 mb-6 text-sm">
+                        Witness Zimmer and Simran exchange their most heartfelt meows and slow blinks under the Goan sky. This special moment will be filled with love, warmth, and perhaps a few playful tail wags.
+                    </p>
+                    <a href="https://www.google.com/maps/place/St.+John+Lateran/@41.8867327,12.4998587,544m/data=!3m1!1e3!4m10!1m2!2m1!1sChurch+of+St+John+Lateran!3m6!1s0x132f61001fe2f47d:0x3e72839cc90aa48d!8m2!3d41.8867327!4d12.5043648!15sChlDaHVyY2ggb2YgU3QgSm9obiBMYXRlcmFuWhsiGWNodXJjaCBvZiBzdCBqb2huIGxhdGVyYW6SAQZjaHVyY2iaASRDaGREU1VoTk1HOW5TMFZPYlY5MVNub3lNR1I2TldoUlJSQUKqAU0QASoKIgZjaHVyY2goADIeEAEiGvp35uF54Do3gfGO4JRnenDeSAJsDTdRMf8zMh0QAiIZY2h1cmNoIG9mIHN0IGpvaG4gbGF0ZXJhbuABAPoBBQiYAhBB!16s%2Fg%2F11x0qyw94k?entry=ttu&amp;g_ep=EgoyMDI1MDYyMi4wIKXMDSoASAFQAw%3D%3D" class="inline-block bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-purple-700 transition-colors">
+                       📍 Garden Lawn (or designated ceremony space)
+                    </a>
+                </div>
+                
+                <!-- Wedding Meal -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center card-hover">
+                    <div class="text-4xl text-primary mb-6 font-bold">🍽️</div>
+                    <h3 class="font-serif text-xl mb-4"> Feast & Feline Frolics <br>(Dinner Reception)</h3>
+                    <p class="text-gray-600 mb-4">
+                        <strong>Friday, June 27, 2025</strong><br>
+                        7:00 PM - 10:00 PM
+                    </p>
+                    <p class="text-gray-600 mb-6 text-sm">
+                        Join us for a delectable dinner reception! Indulge in a scrumptious meal, enjoy delightful music, and watch Zimmer and Simran (and maybe their human counterparts!) engage in some lighthearted frolics. There will be plenty of space for dancing, mingling, and celebrating the happy couple.
+                    </p>
+                    <a href="#" class="inline-block bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-purple-700 transition-colors">
+                       📍 Grand Ballroom / Outdoor Dining Area
+                    </a>
+                </div>
+                
+                <!-- Dinner & Dancing -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center card-hover">
+                    <i class="fas  text-4xl text-primary mb-6">🌙</i>
+                    <h3 class="font-serif text-xl mb-4"> After-Paw-ty & Nightcap</h3>
+                    <p class="text-gray-600 mb-4">
+                        <strong>Friday, June 27, 2025</strong><br>
+                        10:00 PM onwards
+                    </p>
+                    <p class="text-gray-600 mb-6 text-sm">
+                        For those who wish to continue the celebration, join us for a relaxed after-paw-ty. Enjoy some refreshing drinks and good company as we wind down the magical day.
+                    </p>
+                    <a href="#" class="inline-block bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-purple-700 transition-colors">
+                       📍 Designated Lounge Area
+                    </a>
+                </div>
+            </div>
+            
+            <section id="RSVP">
+            <!-- RSVP Section -->
+                <div class="text-center mb-16">
+                    <h3 class="font-script text-3xl md:text-4xl text-primary mb-6">Let us know if you're attending</h3>
+                    <div class="section-divider mb-8"></div>
+                    
+                    <div class="max-w-4xl mx-auto text-center space-y-6 text-gray-600">
+                        <p class="text-lg leading-relaxed">
+                            We would be absolutely thrilled if you could join us to celebrate our marriage! Please let us know if you will be attending by submitting your RSVP and selecting your meal preferences. Kindly respond by 12th July so we can finalise arrangements.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            If you would like to RSVP for your family or household together, you can do so only if we have your contact information. Please use the details we may have on file. For example, if you are one of Ian's friends or family, please use the contact number that Ian is most likely to have. Otherwise, you will need to manually enter the names and meal preferences for each invited guest, and submit their RSVP individually.
+                        </p>
+                        <a href="https://savia--and-ian.thatstheone.com/rsvp" class="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-colors">
+                            RSVP Now
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <!-- Accommodation Section -->
+            <div class="text-center">
+                <h3 class="font-script text-3xl md:text-4xl text-primary mb-6">Book your stay</h3>
+                <div class="section-divider mb-8"></div>
+                
+                <div class="max-w-4xl mx-auto text-center space-y-6 text-gray-600">
+                    <p class="text-lg leading-relaxed">
+                        For those travelling within England, or anyone who would simply like to stay on site and enjoy the celebrations to the fullest, the venue offers 27 rooms for the night of the wedding only. These provide a wonderful opportunity to stay right at the heart of the festivities. Please note that we have already reserved a number of rooms for immediate family, so availability is limited. If you are interested in booking one, do let us know as soon as possible.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        If you are travelling from abroad and need accommodation for a longer stay, we are happy to recommend a variety of accommodation options to suit different budgets. We are also happy to assist with finding alternative nearby accommodation to ensure a comfortable and convenient stay. Please click on the link to take you to our accommodation page for more information on local hotels and guesthouses close to the venue.
+                    </p>
+                    <a href="https://savia--and-ian.thatstheone.com/stay" class="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-colors">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registry Section -->
+    <section id="registry" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">Our Registry</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto text-center space-y-6 text-gray-600">
+                <p class="text-lg leading-relaxed">
+                    We are so happy to have you join us on our wedding day, your presence is truly a gift enough! However, if you would like to give a wedding gift, we would be incredibly grateful.
+                </p>
+                <p class="text-lg leading-relaxed">
+                    We have set up a gift registry in the States so that gifts can be conveniently delivered directly to our home in Las Vegas, saving us the trouble of flying them back with us. Just a couple of things to keep in mind:
+                </p>
+                <div class="text-left max-w-2xl mx-auto space-y-4">
+                    <p class="text-lg">– please ensure that gifts are delivered before the 1st of September so that we receive them in time.</p>
+                    <p class="text-lg">– and please double check that the delivery address is:</p>
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+                        <p class="text-lg font-semibold">
+                            1556 Foley Bay Drive<br>
+                            North Las Vegas, NV 89084
+                        </p>
+                    </div>
+                    <p class="text-lg text-center">You can click the link below to contribute.</p>
+                </div>
+                <a href="https://www.myregistry.com/wedding-registry/savia-gonsalves-and-ian-carey-north-las-vegas-nv/4801373/giftlist" class="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-700 transition-colors">
+                    View Registry
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 md:py-24 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl mb-4">FAQ</h2>
+                <div class="bg-white mx-auto" style="width: 100px; height: 2px;"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-gray-700 font-semibold text-lg">
+                        <span>What is the dress code?</span>
+                    </div>
+                    <div class="faq-answer text-gray-600">
+                        <p>We kindly request that guests adhere to a formal dress code for our wedding. We encourage you to choose an outfit that makes you feel comfortable, while maintaining the formal tone of the occasion.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-gray-700 font-semibold text-lg">
+                        <span>Can I bring a plus one?</span>
+                    </div>
+                    <div class="faq-answer text-gray-600">
+                        <p>Yes, you are welcome to bring a plus one if this is specified in your RSVP. If you don't see the option but would like to bring a partner or significant other, please let us know and we will try our best to accommodate them.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-gray-700 font-semibold text-lg">
+                        <span>Is it a child friendly event?</span>
+                    </div>
+                    <div class="faq-answer text-gray-600">
+                        <p>Yes, it is a child-friendly event. You can easily RSVP for your child when responding for yourself.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-gray-700 font-semibold text-lg">
+                        <span>Will there be a children's meal?</span>
+                    </div>
+                    <div class="faq-answer text-gray-600">
+                        <p>Yes, there will be! If you RSVP "yes" for your child, we will be in touch closer to the date to confirm the children's menu with you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row justify-between items-center mb-8">
+                <div class="text-center lg:text-left mb-6 lg:mb-0">
+                    <h6 class="font-script text-3xl mb-2" style="font-family: sans-serif">Made with love in London, UK</h6>
+                </div>
+                
+                <div class="text-center lg:text-right">
+                    <div class="flex justify-center lg:justify-end space-x-4 mb-4">
+                        <a href="https://www.instagram.com/thatstheone.io/#" class="text-white text-2xl hover:text-primary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <hr class="border-gray-700 mb-8">
+            <div class="text-center text-gray-400">
+                <p>
+                    That's The One © 2025 | All rights reserved | London, UK |
+                    <a href="https://www.thatstheone.com/planners/privacy" class="hover:text-white transition-colors">Privacy Policy</a> |
+                    <a href="https://res.cloudinary.com/tto/image/upload/v1610218524/TTO_T_Cs_nr8u4j.pdf" class="hover:text-white transition-colors">Terms</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+
+    </body></html>
+
+
+    Please note: Timings are approximate and subject to slight adjustments. We will keep you updated with any changes!
