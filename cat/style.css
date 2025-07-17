@@ -37,7 +37,7 @@ body {
   .cat-img {
     width: 120px;
     height: 120px;
-    border-radius: 50%;
+    border-radius: 20%;
     overflow: hidden;
     margin: 0 auto 15px;
     box-shadow: 0 6px 18px rgba(210, 105, 30, 0.3);
