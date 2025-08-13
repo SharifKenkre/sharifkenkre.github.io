@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Website - Zimmer & Simran</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white shadow-lg z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#cover" class="font-script text-3xl text-primary">Z & S</a>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#cover" class="text-gray-700 hover:text-primary transition-colors nav-link">Cover</a>
+                    <a href="#about" class="text-gray-700 hover:text-primary transition-colors nav-link">About</a>
+                    <a href="#venue" class="text-gray-700 hover:text-primary transition-colors nav-link">Venue</a>
+                    <a href="#map" class="text-gray-700 hover:text-primary transition-colors nav-link">Map</a>
+                    <a href="#itinerary" class="text-gray-700 hover:text-primary transition-colors nav-link">Itinerary</a>
+                    <a href="#registry" class="text-gray-700 hover:text-primary transition-colors nav-link">Registry</a>
+                    <a href="#faq" class="text-gray-700 hover:text-primary transition-colors nav-link">FAQ</a>
+                </div>
+                
+                <button class="md:hidden" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+            
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="pb-4 space-y-2">
+                    <a href="#cover" class="block text-center py-2 text-gray-700 hover:text-primary">Cover</a>
+                    <a href="#about" class="block text-center py-2 text-gray-700 hover:text-primary">About</a>
+                    <a href="#venue" class="block text-center py-2 text-gray-700 hover:text-primary">Venue</a>
+                    <a href="#map" class="block text-center py-2 text-gray-700 hover:text-primary">Map</a>
+                    <a href="#itinerary" class="block text-center py-2 text-gray-700 hover:text-primary">Itinerary</a>
+                    <a href="#registry" class="block text-center py-2 text-gray-700 hover:text-primary">Registry</a>
+                    <a href="#faq" class="block text-center py-2 text-gray-700 hover:text-primary">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="cover" class="hero-bg min-h-screen flex items-center justify-center text-white text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="font-script text-6xl md:text-8xl mb-6">झिमर आणि सिमरन</h1>
+            <p class="font-serif text-2xl md:text-4xl mb-6">30 जून 2025</p>
+            <p class="font-sans text-lg md:text-xl mb-8">
+                <i class="fas fa-map-marker-alt mr-2"></i>
+                ग्रँड मर्क्यूर गोवा कॅंडोलिम
+            </p>
+            <a href="#RSVP" class="inline-block elegant-btn text-white px-8 py-4 rounded-full font-semibold text-lg">
+                आत्ता RSVP करा
+            </a>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <a href="#welcome" class="text-white text-3xl animate-bounce">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="py-16 md:py-24 bg-taby-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">आम्ही 'म्यॉरीड' होत आहोत!</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center">
+                    <p class="text-taby-dark text-lg leading-relaxed mb-6">
+                       या वर्षातील सर्वात 'पाव-सम' (उत्कृष्ट) कार्यक्रमात आपले स्वागत आहे! झिमर आणि सिमरनच्या या आनंदाच्या प्रसंगात आमच्या सर्व आवडत्या मानवांना सामील करून घेण्यासाठी आम्ही खूप आनंदी आहोत.
+                    </p>
+                    <p class="text-taby-dark text-lg leading-relaxed mb-6">
+                        30 जून 2025 रोजी, आमचे लाडके मांजरी मित्र, झिमर आणि सिमरन, सुंदर गोव्यामध्ये विवाहबंधनात (किंवा त्याऐवजी, एक खास हेड बूप) एकत्र येणार आहेत.
+                    <p class="text-taby-dark text-lg leading-relaxed">
+                        प्रेम, कुर्र-कुर्र आणि कदाचित थोडे कॅटनिपने भरलेल्या या उत्सवासाठी आमच्यासोबत सामील व्हा!
+                    </p>
+                </div>
+                
+                <div class="lg:w-1/2 text-center">
+                    <img src="assets/welcome.jpg" alt="Welcome" class="w-full max-w-md mx-auto rounded-lg shadow-lg border-4 border-secondary">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">आनंदी जोडपे</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center order-2 lg:order-1">
+                    <img src="https://static.vecteezy.com/system/resources/previews/032/497/946/non_2x/cat-paw-footprint-in-heart-love-cats-animals-pets-puppies-kittens-dogs-red-heart-with-cat-white-paw-print-inside-symbol-of-love-postcard-emblem-icon-print-cover-sticker-t-shirt-vector.jpg" alt="Zimmer and Simran" class="w-full max-w-md mx-auto rounded-lg shadow-lg border-4 border-secondary">
+                </div>
+                
+                <div class="lg:w-1/2 text-center order-1 lg:order-2">
+                    <div class="space-y-6">
+                        <div class="">
+                            <h3 class="font-serif text-2xl text-accent mb-4">झिमर</h3>
+                            <p class="text-taby-dark text-lg leading-relaxed">
+                                 सोन्यासारखं मन असलेला धाडसी आणि आकर्षक टॅबी (ज्याला शेल्फवरून वस्तू पाडण्याची आवड आहे).
+                            </p>
+                        </div>
+                        
+                        <div class="">
+                            <h3 class="font-serif text-2xl text-accent mb-4">सिमरन</h3>
+                            <p class="text-taby-dark text-lg leading-relaxed">
+                               एक सुंदर आणि मोहक कॅलिको जी तिच्या कोमल पंजे आणि मनमोहक नजरेने सर्वांवर राज्य करते.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Section -->
+    <section id="venue" class="py-16 md:py-24 bg-taby-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">ग्रँड मर्क्यूर</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center">
+                    <p class="text-taby-dark text-lg leading-relaxed mb-6">
+                       गोव्यातील वोडलेमोल काकोरा येथील ग्रँड मर्क्यूर, लक्झरी आणि भव्यतेचे एक सुंदर उदाहरण आहे. हे उत्कृष्ट ठिकाण आमच्या खास दिवसासाठी आम्ही कल्पिलेला रोमान्स आणि सौंदर्य पूर्णपणे दर्शवते.
+                    </p>
+                    <p class="text-taby-dark text-lg leading-relaxed">
+                        त्याच्या अप्रतिम वास्तुकला, हिरवीगार बागा आणि जागतिक दर्जाच्या सुविधांमुळे, ग्रँड मर्क्यूर आमच्या प्रेमाच्या उत्सवासाठी एक परिपूर्ण पार्श्वभूमी प्रदान करते, ज्यामुळे प्रत्येक क्षण आम्ही नेहमीच स्वप्न पाहिल्याप्रमाणे जादुई असल्याची खात्री मिळते.
+                    </p>
+                </div>
+                
+                <div class="lg:w-1/2 text-center">
+                    <img src="https://www.ahstatic.com/photos/c2a7_ho_00_p_1024x768.jpg" alt="Grand Mercure" class="w-full max-w-md mx-auto rounded-lg shadow-lg border-4 border-secondary">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">दिशा-निर्देश आणि प्रवास</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center order-2 lg:order-1">
+                    <div class="map-container flex justify-center items-center py-8">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3844.321539579767!2d73.7930260739734!3d15.520884285081934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbfc1000e8ed8dd%3A0x1a0ef87ba34b15a3!2sGrand%20Mercure%20Goa%20Candolim!5e0!3m2!1sen!2sin!4v1751026336114!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-lg border-4 border-secondary"></iframe>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 text-center order-1 lg:order-2">
+                    <div class="space-y-6 text-taby-dark">
+                        <p class="text-lg font-semibold text-accent">गोव्यातील ग्रँड मर्क्यूर येथे झिमर आणि सिमरनसोबतच्या उत्सवात तुमचे स्वागत करताना आम्हाला खूप आनंद होत आहे!</p>
+                        
+                        <div class="bg-taby-light p-6 rounded-lg">
+                            <p class="font-semibold text-primary mb-2"> हवाई मार्गे प्रवास करणाऱ्या सन्मानित पाहुण्यांसाठी:</p>
+                            <p class="leading-relaxed">
+                              कृपया या उष्णकटिबंधीय नंदनवनात येण्यासाठी गोवा आंतरराष्ट्रीय विमानतळ (दाबोलीम विमानतळ - GOI) मार्गे तुमच्या आगमनाची व्यवस्था करा.
+                            </p>
+                        </div>
+
+                        <div class="bg-taby-light p-6 rounded-lg">
+                            <p class="font-semibold text-primary mb-2"> ग्रँड मर्क्यूरला कसे पोहोचावे:</p>
+                            <p class="leading-relaxed">
+                                हे ठिकाण विमानतळापासून अंदाजे 45-60 मिनिटांच्या अंतरावर आहे.
+                                <br><br>
+                                <strong class="text-accent">विशेष वाहतूक:</strong> आम्ही सामूहिक वाहतुकीची योजना करत आहोत; तपशील लवकरच कळवले जातील.
+                                <br>
+                                <strong class="text-accent">टॅक्सी आणि राइड-शेअर्स:</strong>  विमानतळाबाहेर सहज उपलब्ध आहेत.
+                                <br>
+                                <strong class="text-accent">आवास:</strong> ग्रँड मर्क्यूरमध्ये खोल्या उपलब्ध आहेत आणि जर तुम्हाला पसंत असेल तर इतर हॉटेल्सही जवळ आहेत.
+                            </p>
+                        </div>
+
+                        <div class="bg-taby-light p-6 rounded-lg">
+                            <p class="font-semibold text-primary mb-2">आदरणीय स्थानिक पाहुण्यांसाठी:</p>
+                            <p class="leading-relaxed">
+                                वोडलेमोल काकोरा येथील ग्रँड मर्क्यूर शोधणे सोपे आहे.
+                                <br><br>
+                                <strong class="text-accent">खाजगी वाहनाने:</strong> अचूक नेव्हिगेशनसाठी कृपया आमच्या सविस्तर नकाशाचा संदर्भ घ्या.
+                                <br>
+                                <strong class="text-accent">पार्किंग:</strong> जागेवर मोफत व्हॅले आणि सेल्फ-पार्किंग उपलब्ध आहे.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-accent text-white p-6 rounded-lg">
+                            <p class="font-semibold mb-2">द्वारपाल (Concierge) सहाय्य उपलब्ध</p>
+                            <p class="leading-relaxed">
+                                प्रवासासंबंधी कोणत्याही चौकशी किंवा विशेष व्यवस्थेसाठी, कृपया आमच्या वेडिंग द्वारपालाशी संपर्क साधा किंवा त्वरित 
+                                <a href="https://wa.me/qr/EPI6MQKBMJKTL1" class="underline font-semibold">मदतीसाठी येथे क्लिक करा.</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Itinerary Section -->
+    <section id="itinerary" class="py-16 md:py-24 bg-taby-light">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">कार्यक्रम: द ग्रँड कुर्र-उत्सव!</h2>
+                <div class="section-divider"></div>
+                <p class="text-taby-dark text-lg mt-8 max-w-4xl mx-auto">
+                    तुमच्यासोबत उत्सव साजरा करण्यास आम्ही खूप उत्सुक आहोत! खाली 30 जून 2025 रोजी गोव्यातील ग्रँड मर्क्यूर येथे झिमर आणि सिमरनच्या लग्नाच्या उत्सवासाठी उत्तम प्रकारे नियोजित कार्यक्रम दिलेला आहे.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <!-- Welcome Reception -->
+                <div class="card-hover rounded-lg shadow-lg p-8 text-center">
+                    <i class="fas fa-champagne-glasses text-4xl text-taby-gold mb-6"></i>
+                    <h3 class="font-serif text-xl mb-4 text-accent">"पाव-टोग्राफर"<br> स्वागत आणि गप्पा</h3>
+                    <p class="text-taby-dark mb-4">
+                        <strong>गुरुवार, 29 जून 2025</strong><br>
+                        <span class="text-accent">संध्याकाळी 6:00 - रात्री 8:00</span>
+                    </p>
+                    <p class="text-taby-dark mb-6 text-sm">
+                        अनौपचारिक स्वागत कार्यक्रमासाठी आमच्यासोबत सामील व्हा! ही संधी आहे इतर पाहुण्यांना भेटण्याची, हलके स्नॅक्स (आणि कदाचित काही कॅट ट्रीट!) चा आनंद घेण्याची, आणि मुख्य कार्यक्रमापूर्वी स्थायिक होण्याची. जवळजवळ-नवविवाहितांसोबत लवकर "पाव-टोग्राफी" साठी आपले कॅमेरे आणा!
+                    </p>
+                    <p class="text-xs text-accent">📍 लॉबी लाउंज आणि गार्डन टेरेस</p>
+                </div>
+                
+                <!-- Ceremony -->
+                <div class="card-hover rounded-lg shadow-lg p-8 text-center">
+                    <i class="fas fa-heart text-4xl text-taby-gold mb-6"></i>
+                    <h3 class="font-serif text-xl mb-4 text-accent">"आय डू... म्याऊ!"<br> समारंभ</h3>
+                    <p class="text-taby-dark mb-4">
+                        <strong>शुक्रवार, 30 जून 2025</strong><br>
+                        <span class="text-accent">संध्याकाळी 4:00 - संध्याकाळी 5:00</span>
+                    </p>
+                    <p class="text-taby-dark mb-6 text-sm">
+                       गोव्याच्या आकाशाखाली झिमर आणि सिमरन यांचे अत्यंत हृदयस्पर्शी म्याऊ आणि हळू डोळे मिटून घेण्याचे साक्षीदार व्हा. हा विशेष क्षण प्रेम, उबदारपणा आणि कदाचित काही चंचल शेपटी हलवण्याने भरलेला असेल.
+                    </p>
+                    <p class="text-xs text-accent">📍 गार्डन पॅव्हिलियन आणि सेरेमनी लॉन</p>
+                </div>
+                
+                <!-- Wedding Dinner -->
+                <div class="card-hover rounded-lg shadow-lg p-8 text-center">
+                    <i class="fas fa-utensils text-4xl text-taby-gold mb-6"></i>
+                    <h3 class="font-serif text-xl mb-4 text-accent">मेजवानी आणि मांजरीचा खेळ <br>(रात्रीचे जेवण रिसेप्शन)</h3>
+                    <p class="text-taby-dark mb-4">
+                        <strong>शुक्रवार, 30 जून 2025</strong><br>
+                        <span class="text-accent">संध्याकाळी 7:00 - रात्री 10:00</span>
+                    </p>
+                    <p class="text-taby-dark mb-6 text-sm">
+                       एक स्वादिष्ट रात्रीच्या जेवणाच्या रिसेप्शनसाठी आमच्यासोबत सामील व्हा! रुचकर जेवणाचा आस्वाद घ्या, आनंददायी संगीताचा आनंद घ्या आणि झिमर आणि सिमरनला (आणि कदाचित त्यांच्या मानवी साथीदारांना!) काही हलक्या-फुलक्या मौजमजेमध्ये गुंतलेले पहा. आनंदी जोडप्यासोबत नृत्य करण्यासाठी, मिसळण्यासाठी आणि साजरा करण्यासाठी भरपूर जागा असेल.
+                    </p>
+                    <p class="text-xs text-accent">📍 ग्रँड बॉलरूम आणि टेरेस</p>
+                </div>
+                
+                <!-- Evening Reception -->
+                <div class="card-hover rounded-lg shadow-lg p-8 text-center">
+                    <i class="fas fa-music text-4xl text-taby-gold mb-6"></i>
+                    <h3 class="font-serif text-xl mb-4 text-accent">आफ्टर-पाव-पार्टी आणि नाईट कॅप</h3>
+                    <p class="text-taby-dark mb-4">
+                        <strong>शुक्रवार, 30 जून 2025</strong><br>
+                        <span class="text-accent">रात्री 10:00 नंतर</span>
+                    </p>
+                    <p class="text-taby-dark mb-6 text-sm">
+                       ज्यांना उत्सव सुरू ठेवायचा आहे, त्यांच्यासाठी आरामशीर आफ्टर-पाव-पार्टीसाठी आमच्यासोबत सामील व्हा. जादुई दिवसाची सांगता करताना काही ताजेतवाने पेये आणि चांगल्या संगतीचा आनंद घ्या.
+                    </p>
+                    <p class="text-xs text-accent">📍 मूनलाइट लाउंज आणि डान्स फ्लोर</p>
+                </div>
+            </div>
+            
+            <section id="RSVP">
+                <!-- RSVP Section -->
+                <div class="text-center mb-16">
+                    <h3 class="font-script text-3xl md:text-4xl text-primary mb-6">कृपया तुमच्या उपस्थितीची पुष्टी करा</h3>
+                    <div class="section-divider mb-8"></div>
+                    
+                    <div class="max-w-4xl mx-auto text-center space-y-6 text-taby-dark">
+                        <p class="text-lg leading-relaxed">
+                            जर तुम्ही झिमर आणि सिमरनच्या मोठ्या दिवसाचा उत्सव साजरा करण्यासाठी आमच्यासोबत सामील झालात तर आम्हाला खूप आनंद होईल! तुमच्या उपस्थितीने त्यांचे लग्न पूर्णपणे 'कुर्र-फेक्ट' (उत्तम) होईल.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            तुमची RSVP सबमिट करून तुम्ही उपस्थित राहणार आहात की नाही हे कृपया आम्हाला कळवा. यामुळे आम्हाला उत्सवासाठी सर्व व्यवस्था अंतिम करण्यास मदत होईल.
+                        </p>
+                        <p class="text-lg leading-relaxed font-semibold text-accent">
+                            कृपया 27 मे 2025 पर्यंत प्रतिसाद द्या जेणेकरून आम्ही आमच्या विशेष सोहळ्यासाठी सर्व काही योग्य असल्याची खात्री करू शकू.
+                        </p>
+                        <a href="rsvp.html" class="inline-block elegant-btn text-white px-8 py-4 rounded-full text-lg font-semibold">
+                            आत्ता RSVP करा
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Accommodation Section -->
+            <div class="text-center">
+                <h3 class="font-script text-3xl md:text-4xl text-primary mb-6">Book Your Stay: <br><br>Purr-fect Accommodations!</h3>
+                <div class="section-divider mb-8"></div>
+                
+                <div class="max-w-4xl mx-auto text-center space-y-6 text-taby-dark">
+                    <p class="text-lg leading-relaxed">
+                        For those traveling to Goa and wishing to immerse themselves fully in Zimmer and Simran's wedding celebrations, we highly recommend staying at the Grand Mercure itself! This offers a wonderful opportunity to be right at the heart of the festivities, ensuring you don't miss a single meow or happy purr.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        We have arranged for a block of rooms for our guests. Please note that while we've done our best, availability might be limited, especially given the popularity of Goa in June! If you are interested in booking a room at the Grand Mercure, we encourage you to do so as soon as possible to secure your spot.
+                    </p>
+                    <a href="book.html" class="inline-block elegant-btn text-white px-8 py-4 rounded-full text-lg font-semibold">
+                       Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registry Section -->
+    <section id="registry" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl text-primary mb-4">Wedding Registry</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto text-center space-y-6 text-taby-dark">
+                <p class="text-lg leading-relaxed">
+                    Your presence at Zimmer and Simran's wedding is truly the greatest gift! We are so happy to have you join us to celebrate their special day.
+                </p>
+                <p class="text-lg leading-relaxed">
+                    However, if you'd like to help the happy couple set up their new life together with some extra comforts, we would be incredibly grateful!
+                </p>
+                <p class="text-lg leading-relaxed">
+                    Zimmer and Simran have created a small registry filled with their favorite things – mostly comfy napping spots, fun toys for endless playtime, and delicious treats for celebratory snacks!
+                </p>
+                <a href="registry.html" class="inline-block elegant-btn text-white px-8 py-4 rounded-full text-lg font-semibold">
+                    View Our Registry
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 md:py-24 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-4xl md:text-6xl mb-4">Frequently Asked Questions</h2>
+                <div class="bg-white mx-auto" style="width: 100px; height: 2px;"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-taby-dark font-semibold text-lg">
+                        <span>What's the dress code for humans?</span>
+                    </div>
+                    <div class="faq-answer text-taby-dark">
+                        <p>We suggest smart casual attire for all our human guests. Think comfortable yet celebratory! For our feline guests, a favorite bow tie or a sparkly collar would be purr-fectly acceptable and highly encouraged for photo opportunities!</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-taby-dark font-semibold text-lg">
+                        <span>Can I bring my own furry friend?</span>
+                    </div>
+                    <div class="faq-answer text-taby-dark">
+                        <p>While we adore all animals, to ensure a smooth and stress-free day for Zimmer and Simran (and all our guests!), we kindly request that only Zimmer and Simran be the official feline stars of the show. We appreciate your understanding!</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-taby-dark font-semibold text-lg">
+                        <span>Will there be catnip?</span>
+                    </div>
+                    <div class="faq-answer text-taby-dark">
+                        <p>Absolutely! We'll have a designated "Catnip Bar" for the happy couple (and any approved feline attendees who can't resist!). For humans, we'll have plenty of delicious food and refreshing beverages, no catnip required!</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-taby-dark font-semibold text-lg">
+                        <span>What kind of food will be served?</span>
+                    </div>
+                    <div class="faq-answer text-taby-dark">
+                        <p>For our human guests, we'll have a delightful spread of delicious food suitable for all ages and tastes. For Zimmer and Simran, expect gourmet wet food, crunchy kibble, and maybe a few special salmon treats!</p>
+                    </div>
+                </div>
+                
+            
+            
+                <div class="faq-item bg-white rounded-lg mb-4 overflow-hidden">
+                    <div class="faq-question p-6 flex justify-between items-center text-taby-dark font-semibold text-lg">
+                        <span>Will there be dancing?</span>
+                    </div>
+                    <div class="faq-answer text-taby-dark">
+                        <p>Yes! We'll have music for humans to dance and celebrate. Zimmer and Simran might join in with some playful pounces or zoomies, but their dancing might look a little different from ours!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-taby-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row justify-between items-center mb-8">
+                <div class="text-center lg:text-left mb-6 lg:mb-0">
+                    <h6 class="font-script text-3xl mb-2 text-taby-gold">Made with Love from Sharif</h6>
+                    <p class="text-secondary">From the wedding planning team</p>
+                </div>
+                
+                <div class="text-center lg:text-right">
+                    <div class="flex justify-center lg:justify-end space-x-4 mb-4">
+                        <a href="https://www.instagram.com/" class="text-taby-gold text-2xl hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/" class="text-taby-gold text-2xl hover:text-white transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.x.com/" class="text-taby-gold text-2xl hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="border-taby-accent mb-8">
+            <div class="text-center text-secondary">
+                <p>
+                    Designed with Excellence | All Rights Reserved by Deandra | Goa, India |
+                    <a href="" class="hover:text-white transition-colors">Privacy Policy</a> |
+                    <a href="" class="hover:text-white transition-colors">Terms of Service</a>
+                    <br><br>
+                    <em class="text-taby-gold">Please note: All timing details are approximate and may be subject to minor adjustments. We will communicate any changes promptly to ensure your seamless experience.</em>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+
+</body>
+</html>
