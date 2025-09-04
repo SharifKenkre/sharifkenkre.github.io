@@ -103,10 +103,12 @@ export default function SettingsPage() {
         }
         
         const wicketValue = prev.pointValues.find(v => v === 'WICKET');
-        const newPointValues = [...numericPointValues.filter(v => !isNaN(v))];
-        if(wicketValue) newPointValues.push(wicketValue);
+        const newPointValues: (string | number)[] = [...numericPointValues.filter(v => !isNaN(v))];
+
+        if (wicketValue) newPointValues.push(wicketValue);
 
         return { ...prev, pointValues: newPointValues };
+
      });
   };
 
