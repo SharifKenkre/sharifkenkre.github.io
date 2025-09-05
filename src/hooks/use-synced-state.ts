@@ -1,63 +1,71 @@
+
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
-const channels = new Map<string, BroadcastChannel>();
-
-function getChannel(name: string): BroadcastChannel {
-  if (!channels.has(name)) {
-    channels.set(name, new BroadcastChannel(name));
-  }
-  return channels.get(name)!;
-}
-
-export function useSyncedState<T>(key: string, initialState: T) {
-  const channel = typeof window !== 'undefined' ? getChannel(key) : null;
-  
-  const [state, setState] = useState<T>(() => {
-    if (typeof window === 'undefined') {
-      return initialState;
-    }
-    try {
-      const item = window.localStorage.getItem(key);
-      const parsed = item ? JSON.parse(item) : initialState;
-      return parsed;
-    } catch (error) {
-      console.error(`Error reading from localStorage key “${key}”:`, error);
-      return initialState;
-    }
-  });
-
-  const stateRef = useRef(state);
-  useEffect(() => {
-    stateRef.current = state;
-  }, [state]);
+export function useFirestoreSyncedState<T extends { id: string }>(
+  docId: string | null
+) {
+  const [state, setState] = useState<T | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const unsubscribeRef = useRef<() => void | undefined>();
 
   useEffect(() => {
-    const handleMessage = (event: MessageEvent<T>) => {
-      // Use ref to get the latest state to prevent stale closures
-      if (JSON.stringify(event.data) !== JSON.stringify(stateRef.current)) {
-        setState(event.data);
+    // Clean up previous listener if docId changes
+    if (unsubscribeRef.current) {
+      unsubscribeRef.current();
+      unsubscribeRef.current = undefined;
+    }
+
+    if (docId) {
+      setIsLoaded(false);
+      const docRef = doc(db, 'quizzes', docId);
+
+      // Set up the real-time listener
+      unsubscribeRef.current = onSnapshot(
+        docRef,
+        (docSnap) => {
+          if (docSnap.exists()) {
+            setState(docSnap.data() as T);
+          } else {
+            console.log(`Document ${docId} does not exist.`);
+            setState(null);
+          }
+          setIsLoaded(true);
+        },
+        (error) => {
+          console.error('Firestore snapshot error:', error);
+          setIsLoaded(true);
+        }
+      );
+    } else {
+      setState(null);
+      setIsLoaded(true);
+    }
+
+    // Cleanup listener on component unmount
+    return () => {
+      if (unsubscribeRef.current) {
+        unsubscribeRef.current();
       }
     };
-    channel?.addEventListener('message', handleMessage);
-    return () => {
-      channel?.removeEventListener('message', handleMessage);
-    };
-  }, [key, channel]);
+  }, [docId]);
 
-  const setSyncedState = useCallback((value: T | ((val: T) => T)) => {
-    // Use ref to get the latest state for the updater function
-    const newValue = value instanceof Function ? value(stateRef.current) : value;
-    stateRef.current = newValue; // Update ref immediately
-    setState(newValue);
-    try {
-      window.localStorage.setItem(key, JSON.stringify(newValue));
-    } catch (error) {
-       console.error(`Error writing to localStorage key “${key}”:`, error);
+  // This function is now responsible for writing the state to Firestore
+  const setFirestoreState = (value: T | null | ((prevState: T | null) => T | null)) => {
+    const newState = value instanceof Function ? value(state) : value;
+    setState(newState);
+
+    if (newState && newState.id) {
+      const docRef = doc(db, 'quizzes', newState.id);
+      // We use setDoc with merge:true to avoid overwriting fields if the local state is partial
+      setDoc(docRef, newState, { merge: true }).catch((error) => {
+        console.error('Error writing to Firestore:', error);
+      });
     }
-    channel?.postMessage(newValue);
-  }, [key, channel]);
+  };
 
-  return [state, setSyncedState] as const;
+  return { state, setState: setFirestoreState, isLoaded };
 }

@@ -1,8 +1,9 @@
+
 'use client';
 
 import { useQuiz } from '@/contexts/quiz-context';
 import { useEffect } from 'react';
-import { hexToHsl, type CustomTheme } from '@/lib/theme';
+import { type CustomTheme } from '@/lib/theme';
 
 // Helper function to get contrasting text color (black or white)
 const getContrastingColor = (hsl: string): string => {
@@ -15,6 +16,7 @@ const getContrastingColor = (hsl: string): string => {
 };
 
 const setCssVariables = (customTheme: CustomTheme) => {
+    if (typeof window === 'undefined') return;
     const root = document.documentElement;
     const backgroundHsl = customTheme.background;
     const cardHsl = customTheme.card;
@@ -52,10 +54,16 @@ const setCssVariables = (customTheme: CustomTheme) => {
 };
 
 export function ThemeManager({ children }: { children: React.ReactNode }) {
-  const { quizState } = useQuiz();
-  const { theme, customTheme } = quizState.monitorSettings;
+  const { quizState, isLoaded } = useQuiz();
+  
+  // We can only get theme settings if quizState is loaded.
+  const monitorSettings = quizState?.monitorSettings;
 
   useEffect(() => {
+    // Default to 'default' theme to ensure server and client match initially
+    const theme = monitorSettings?.theme || 'default';
+    const customTheme = monitorSettings?.customTheme;
+    
     const body = document.body;
     body.classList.remove('theme-default', 'theme-dark', 'theme-light', 'theme-custom');
     
@@ -64,7 +72,7 @@ export function ThemeManager({ children }: { children: React.ReactNode }) {
     }
     body.classList.add(`theme-${theme}`);
 
-  }, [theme, customTheme]);
+  }, [monitorSettings]);
 
   return <>{children}</>;
 }

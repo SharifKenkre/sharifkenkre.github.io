@@ -17,41 +17,52 @@ import { cn } from '@/lib/utils';
 import { QuizLabsLogo } from '@/components/quiz/quiz-labs-logo';
 
 export default function MonitorPage() {
-  const { quizState, setQuizState } = useQuiz();
-  const [verified, setVerified] = useState(false);
+  const { quizState, setQuizState, loadQuiz, isLoaded } = useQuiz();
   const [inputCode, setInputCode] = useState('');
+  const [isConnected, setIsConnected] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!verified) return;
-
-    // Start sending heartbeat when connected
-    const heartbeatInterval = setInterval(() => {
-        setQuizState(prev => ({...prev, monitorHeartbeat: Date.now()}))
-    }, 2000); // Send heartbeat every 2 seconds
-
-    return () => clearInterval(heartbeatInterval);
-  }, [verified, setQuizState]);
-
   const handleVerify = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputCode === quizState.verificationCode) {
-      setVerified(true);
-      toast({
-        title: 'Successfully Connected!',
-        description: 'Now displaying scores from the primary device.',
-      });
-    } else {
-      toast({
-        variant: 'destructive',
-        title: 'Connection Failed',
-        description: 'The verification code is incorrect. Please try again.',
-      });
+    if (inputCode.trim()) {
+      loadQuiz(inputCode.trim());
     }
   };
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    
+    if(quizState && !isConnected) {
+        setIsConnected(true);
+        toast({
+            title: 'Successfully Connected!',
+            description: `Now displaying scores for quiz ${quizState.id}.`,
+        });
+    } else if (!quizState) {
+        setIsConnected(false);
+    }
+
+  }, [isLoaded, quizState, isConnected, toast]);
+
+  useEffect(() => {
+      // This is the heartbeat effect. It tells the primary device that the monitor is active.
+      if (isConnected && quizState) {
+          const intervalId = setInterval(() => {
+              setQuizState(prev => {
+                  if (!prev) return null;
+                  return {
+                      ...prev,
+                      monitorHeartbeat: Date.now()
+                  }
+              });
+          }, 5000); // Update every 5 seconds
+
+          return () => clearInterval(intervalId);
+      }
+  }, [isConnected, quizState, setQuizState]);
   
-  if (!verified) {
+  if (!isConnected) {
     return (
       <div className="flex min-h-screen items-center justify-center p-4 bg-muted/20">
         <Card className="w-full max-w-md shadow-2xl">
@@ -81,14 +92,27 @@ export default function MonitorPage() {
                   className="text-center text-2xl font-mono tracking-[0.5em] h-14"
                 />
               </div>
-              <Button type="submit" className="w-full">
-                Connect
+              <Button type="submit" className="w-full" disabled={!isLoaded}>
+                {isLoaded ? 'Connect' : 'Connecting...'}
               </Button>
             </form>
           </CardContent>
         </Card>
       </div>
     );
+  }
+  
+  if (!quizState) {
+    // This case should ideally not be reached if isConnected is true, but it's good for safety.
+     return (
+        <div className="flex min-h-screen items-center justify-center text-center p-4">
+            <div>
+                <Zap className="mx-auto h-16 w-16 text-destructive animate-pulse" />
+                <h2 className="mt-4 text-2xl font-bold font-headline">Error</h2>
+                <p className="text-muted-foreground">Could not load quiz data.</p>
+            </div>
+        </div>
+      )
   }
 
   if (quizState.numTeams === 0) {

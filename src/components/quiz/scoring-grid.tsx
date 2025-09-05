@@ -15,11 +15,10 @@ import { useEffect, useRef } from 'react';
 
 export function ScoringGrid() {
   const { quizState, setQuizState } = useQuiz();
-  const { scores, activeCell, teamNames, numQuestions } = quizState;
+  const { scores, activeCell, teamNames, numQuestions, rounds, monitorSettings } = quizState;
   const activeCellRef = useRef<HTMLTableCellElement>(null);
   
   const numTeams = teamNames?.length || 0;
-  // Show current number of balls + 1 for the upcoming ball, or at least 1 row.
   const questionRows = Array.from({ length: numQuestions + 1 }, (_, i) => i);
 
 
@@ -32,7 +31,6 @@ export function ScoringGrid() {
   }, [activeCell]);
 
   const handleCellClick = (question: number, team: number) => {
-    // Do not allow clicking on future (not yet active) rows
     if (question > numQuestions) return;
 
     setQuizState(prev => ({
@@ -41,17 +39,46 @@ export function ScoringGrid() {
     }));
   };
 
+ const getTeamTotals = (teamIndex: number): { runs: number; wickets: number } => {
+    let totalRuns = 0;
+    let totalWickets = 0;
+
+    const processScores = (scoreData: Record<number, Record<number, any>>) => {
+        Object.values(scoreData).forEach(questionScores => {
+            const score = questionScores[teamIndex];
+            if (score) {
+                totalRuns += score.runs || 0;
+                if (score.isWicket) {
+                    totalWickets += 1;
+                }
+            }
+        });
+    };
+
+    (rounds || []).forEach(round => processScores(round.scores));
+    processScores(scores);
+    
+    return { runs: totalRuns, wickets: totalWickets };
+  };
+
   return (
     <div className="border rounded-lg overflow-hidden bg-card">
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px] font-headline">Ball</TableHead>
-            {teamNames && teamNames.map((name, teamIndex) => (
-              <TableHead key={teamIndex} className="text-center font-headline">
-                {name}
-              </TableHead>
-            ))}
+            {teamNames && teamNames.map((name, teamIndex) => {
+                const totals = getTeamTotals(teamIndex);
+                const isOut = totals.wickets >= 10;
+                return (
+                  <TableHead key={teamIndex} className={cn("text-center font-headline",
+                    isOut ? 'text-destructive' : 'text-success',
+                    isOut && (monitorSettings.theme === 'dark' ? 'theme-light' : 'theme-dark')
+                  )}>
+                    {name} ({totals.runs}/{totals.wickets})
+                  </TableHead>
+                )
+            })}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -62,6 +89,9 @@ export function ScoringGrid() {
                 const isActive =
                   activeCell?.question === questionIndex && activeCell?.team === teamIndex;
                 const score = scores[questionIndex]?.[teamIndex];
+
+                const totalWickets = getTeamTotals(teamIndex).wickets;
+                const isOut = totalWickets >= 10;
 
                 let displayValue = '-';
                 if (score) {
@@ -81,7 +111,8 @@ export function ScoringGrid() {
                       isActive && 'bg-accent/20 ring-2 ring-accent rounded-md',
                       score !== undefined ? 'font-bold' : 'text-muted-foreground',
                       score?.isWicket && 'text-destructive',
-                      questionIndex > numQuestions && 'cursor-not-allowed'
+                      questionIndex > numQuestions && 'cursor-not-allowed',
+                      isOut && (monitorSettings.theme === 'dark' ? 'theme-light' : 'theme-dark')
                     )}
                     onClick={() => handleCellClick(questionIndex, teamIndex)}
                   >

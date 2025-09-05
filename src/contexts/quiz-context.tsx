@@ -1,10 +1,10 @@
 
 'use client';
 
-import { useSyncedState } from '@/hooks/use-synced-state';
+import { useFirestoreSyncedState } from '@/hooks/use-synced-state';
 import type { CustomTheme } from '@/lib/theme';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 export type Score = {
   runs: number;
@@ -12,7 +12,7 @@ export type Score = {
 };
 
 export type QuizState = {
-  verificationCode: string | null;
+  id: string; // This is the verificationCode and the document ID in Firestore
   quizTitle: string;
   numTeams: number;
   teamNames: string[];
@@ -27,11 +27,10 @@ export type QuizState = {
     customTheme?: CustomTheme;
     showLogo: boolean;
   };
-  monitorHeartbeat: number | null;
+  monitorHeartbeat: number; // Timestamp of the last ping from the monitor
 };
 
-export const initialState: QuizState = {
-  verificationCode: null,
+export const initialState: Omit<QuizState, 'id' | 'monitorHeartbeat'> = {
   quizTitle: 'Live Cricket Scoreboard',
   numTeams: 0,
   teamNames: [],
@@ -50,22 +49,40 @@ export const initialState: QuizState = {
     },
     showLogo: true,
   },
-  monitorHeartbeat: null,
 };
 
 type QuizContextType = {
-  quizState: QuizState;
-  setQuizState: Dispatch<SetStateAction<QuizState>>;
-  initialState: QuizState;
+  quizState: QuizState | null; // Can be null until a quiz is loaded/created
+  setQuizState: Dispatch<SetStateAction<QuizState | null>>;
+  createQuiz: () => string;
+  loadQuiz: (id: string) => void;
+  isLoaded: boolean;
 };
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export function QuizProvider({ children }: { children: ReactNode }) {
-  const [quizState, setQuizState] = useSyncedState('quiz-state', initialState);
+  const [quizId, setQuizId] = useState<string | null>(null);
+  const { state: quizState, setState: setQuizState, isLoaded } = useFirestoreSyncedState<QuizState>(quizId);
+
+  const createQuiz = () => {
+    const newId = Math.floor(100000 + Math.random() * 900000).toString();
+    const newState: QuizState = {
+      id: newId,
+      ...initialState,
+      monitorHeartbeat: 0,
+    };
+    setQuizId(newId);
+    setQuizState(newState); // This will also write to Firestore
+    return newId;
+  };
+  
+  const loadQuiz = (id: string) => {
+    setQuizId(id);
+  };
 
   return (
-    <QuizContext.Provider value={{ quizState, setQuizState, initialState }}>
+    <QuizContext.Provider value={{ quizState, setQuizState, createQuiz, loadQuiz, isLoaded }}>
       {children}
     </QuizContext.Provider>
   );

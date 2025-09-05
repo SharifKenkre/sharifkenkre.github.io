@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -9,19 +10,37 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useQuiz } from '@/contexts/quiz-context';
-import { Monitor, MousePointerClick, Zap } from 'lucide-react';
-import Link from 'next/link';
+import { Monitor, MousePointerClick, Zap, Link } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState, type FormEvent } from 'react';
 
 export default function Home() {
-  const { setQuizState, initialState } = useQuiz();
+  const { createQuiz } = useQuiz();
+  const router = useRouter();
+  const [resumeId, setResumeId] = useState('');
 
   const handleSelectPrimary = () => {
-    const newCode = Math.floor(100000 + Math.random() * 900000).toString();
-    setQuizState({
-      ...initialState,
-      verificationCode: newCode,
-    });
+    const newQuizId = createQuiz();
+    router.push(`/primary?id=${newQuizId}`);
+  };
+
+  const handleResumeQuiz = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (resumeId.trim()) {
+      router.push(`/primary?id=${resumeId.trim()}`);
+    }
   };
 
   return (
@@ -48,11 +67,9 @@ export default function Home() {
           </CardHeader>
           <CardContent />
           <CardFooter>
-            <Link href="/monitor" className="w-full">
-              <Button className="w-full" variant="outline">
+             <Button className="w-full" variant="outline" onClick={() => router.push('/monitor')}>
                 Open Monitor
               </Button>
-            </Link>
           </CardFooter>
         </Card>
         <Card className="transform hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-2xl">
@@ -64,12 +81,44 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent />
-          <CardFooter>
-            <Link href="/primary" className="w-full">
+          <CardFooter className="flex-col gap-2">
               <Button className="w-full" onClick={handleSelectPrimary}>
-                Start Scoring
+                Start a New Quiz
               </Button>
-            </Link>
+              <Dialog>
+                <DialogTrigger asChild>
+                    <Button className="w-full" variant="secondary">
+                        <Link className="mr-2 h-4 w-4" /> Resume Session
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>Resume Scoring Session</DialogTitle>
+                        <DialogDescription>
+                            Enter the 6-digit code for the quiz you want to reconnect to.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleResumeQuiz}>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="quiz-id" className="text-right">
+                                    Quiz ID
+                                </Label>
+                                <Input
+                                    id="quiz-id"
+                                    value={resumeId}
+                                    onChange={(e) => setResumeId(e.target.value)}
+                                    className="col-span-3"
+                                    maxLength={6}
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="submit">Reconnect</Button>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+               </Dialog>
           </CardFooter>
         </Card>
       </div>

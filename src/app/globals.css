@@ -25,6 +25,8 @@ body {
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 0 0% 98%;
     --border: 231 40% 85%;
     --input: 231 40% 88%;
     --ring: 231 48% 48%;
@@ -53,6 +55,8 @@ body {
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 0 0% 98%;
     --border: 231 20% 25%;
     --input: 231 20% 25%;
     --ring: 231 48% 58%;
@@ -79,6 +83,8 @@ body {
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
@@ -100,6 +106,8 @@ body {
     --accent-foreground: var(--custom-accent-foreground-val);
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 0 0% 98%;
     --border: var(--custom-border-val);
     --input: var(--custom-border-val);
     --ring: var(--custom-primary-val);
