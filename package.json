@@ -64,5 +64,12 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "build:pages": "npm run build && npm run export"
   }
+
 }
