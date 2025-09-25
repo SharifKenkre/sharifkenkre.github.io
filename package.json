@@ -2,20 +2,14 @@
   "name": "nextn",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": ">=18.17 <23"
-  },
   "scripts": {
-    "dev": "next dev --turbopack -p 9002",
+    "dev": "next dev -p 9002",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "build": "next build",
-    "export": "next export",
-    "build:pages": "npm run build && npm run export",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "postinstall": "patch-package || echo \"patch-package not needed\""
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.1",
@@ -51,11 +45,11 @@
     "framer-motion": "^11.2.10",
     "genkit": "^1.14.1",
     "lucide-react": "^0.475.0",
-    "next": "14.2.12",
+    "next": "15.3.3",
     "patch-package": "^8.0.0",
-    "react": "18.3.1",
+    "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
-    "react-dom": "18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",
     "recharts": "^2.15.1",
     "tailwind-merge": "^3.0.1",
