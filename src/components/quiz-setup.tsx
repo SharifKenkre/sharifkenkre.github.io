@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -21,35 +21,39 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronDown, Loader2 } from "lucide-react";
 import { Separator } from "./ui/separator";
-import { getAvailableSubjects, getAvailableSections } from "@/lib/actions";
+import { getAvailableSubjects } from "@/lib/actions";
+import type { Paper } from "@/lib/types";
 
 const ALL_DIFFICULTIES = ["easy", "medium", "hard"];
 const ALL_QUESTION_TYPES = ['mcq', 'assertion-reason', 'image-mcq', 'puzzle'];
 
-export function QuizSetup({ paperId }: { paperId: string | null }) {
+export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
+  const [selectedPapers, setSelectedPapers] = useState<string[]>([]);
   const [numberOfQuestions, setNumberOfQuestions] = useState(10);
   const [selectedDifficulties, setSelectedDifficulties] = useState<string[]>(ALL_DIFFICULTIES);
-  const [selectedSections, setSelectedSections] = useState<string[]>([]);
   const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<string[]>(ALL_QUESTION_TYPES);
   const [subject, setSubject] = useState("all");
   const [timeLimit, setTimeLimit] = useState(15);
   const router = useRouter();
 
   const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
-  const [availableSections, setAvailableSections] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const paperOptions = useMemo(() => allPapers.map(p => ({ id: p.id, title: p.title })), [allPapers]);
 
   useEffect(() => {
     async function fetchFilters() {
+      if (selectedPapers.length === 0) {
+        setAvailableSubjects([]);
+        return;
+      }
       setIsLoading(true);
       try {
-        const [subjects, sections] = await Promise.all([
-          getAvailableSubjects(paperId || undefined),
-          getAvailableSections(paperId || undefined),
-        ]);
+        const subjects = await getAvailableSubjects(selectedPapers);
         setAvailableSubjects(subjects);
-        setAvailableSections(sections);
-        setSelectedSections(sections); // Default to all available sections
+        if (!subjects.includes(subject)) {
+            setSubject("all");
+        }
       } catch (error) {
         console.error("Failed to fetch filters", error);
       } finally {
@@ -57,24 +61,22 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
       }
     }
     fetchFilters();
-  }, [paperId]);
+  }, [selectedPapers, subject]);
 
   const handleStartQuiz = () => {
-    let url = `/quiz?limit=${numberOfQuestions}&time=${timeLimit * 60}`;
+    let url = `/quiz?limit=${numberOfQuestions}&time=${timeLimit}`; // time is in minutes here
+    
+    if (selectedPapers.length > 0) {
+      url += `&papers=${selectedPapers.join(',')}`;
+    }
     if (selectedDifficulties.length > 0 && selectedDifficulties.length < ALL_DIFFICULTIES.length) {
       url += `&difficulty=${selectedDifficulties.join(',')}`;
-    }
-    if (selectedSections.length > 0 && availableSections.length > 0 && selectedSections.length < availableSections.length) {
-      url += `&section=${selectedSections.join(',')}`;
     }
     if (selectedQuestionTypes.length > 0 && selectedQuestionTypes.length < ALL_QUESTION_TYPES.length) {
         url += `&questionType=${selectedQuestionTypes.join(',')}`;
     }
     if (subject !== 'all') {
         url += `&subject=${subject}`;
-    }
-    if (paperId) {
-      url += `&paperId=${paperId}`;
     }
     router.push(url);
   };
@@ -86,19 +88,9 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
     allOptions: string[]
   ) => {
     if (value === 'all') {
-      if (list.length === allOptions.length) {
-        setter([]);
-      } else {
-        setter(allOptions);
-      }
+      setter(list.length === allOptions.length ? [] : allOptions);
     } else {
-      let newList: string[];
-      if (list.includes(value)) {
-        newList = list.filter((item) => item !== value);
-      } else {
-        newList = [...list, value];
-      }
-      setter(newList);
+      setter(list.includes(value) ? list.filter((item) => item !== value) : [...list, value]);
     }
   };
 
@@ -108,12 +100,16 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
     selected,
     onChange,
     disabled = false,
+    displayKey = 'title',
+    valueKey = 'id',
   }: {
     label: string;
-    options: string[];
+    options: any[];
     selected: string[];
     onChange: (value: string) => void;
     disabled?: boolean;
+    displayKey?: string;
+    valueKey?: string;
   }) => (
     <div className="space-y-2">
       <Label>{label}</Label>
@@ -124,20 +120,17 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
               {selected.length === 0
                 ? `Select ${label.toLowerCase()}...`
                 : selected.length === options.length 
-                ? "All"
-                : selected.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(", ")}
+                ? `All ${label}`
+                : `${selected.length} ${label.toLowerCase()} selected`}
             </span>
             <ChevronDown className="h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0" align="start">
+        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
           <div className="p-2 space-y-1 max-h-60 overflow-y-auto">
             <div
-                className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onChange('all');
-                }}
+                className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent cursor-pointer"
+                onClick={(e) => { e.preventDefault(); onChange('all'); }}
               >
                 <Checkbox
                   id={`checkbox-${label}-all`}
@@ -145,50 +138,51 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
                   onCheckedChange={() => onChange('all')}
                 />
                 <Label htmlFor={`checkbox-${label}-all`} className="font-normal flex-1 cursor-pointer">
-                  All
+                  All {label}
                 </Label>
             </div>
             <Separator />
-            {options.map((option) => (
-              <div
-                key={option}
-                className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onChange(option);
-                }}
-              >
-                <Checkbox
-                  id={`checkbox-${label}-${option}`}
-                  checked={selected.includes(option)}
-                  onCheckedChange={() => onChange(option)}
-                />
-                <Label htmlFor={`checkbox-${label}-${option}`} className="font-normal flex-1 cursor-pointer">
-                  {option.charAt(0).toUpperCase() + option.slice(1)}
-                </Label>
-              </div>
-            ))}
+            {options.map((option) => {
+               const val = valueKey ? option[valueKey] : option;
+               const display = displayKey ? option[displayKey] : option;
+               return (
+                  <div
+                    key={val}
+                    className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent cursor-pointer"
+                    onClick={(e) => { e.preventDefault(); onChange(val); }}
+                  >
+                    <Checkbox
+                      id={`checkbox-${label}-${val}`}
+                      checked={selected.includes(val)}
+                      onCheckedChange={() => onChange(val)}
+                    />
+                    <Label htmlFor={`checkbox-${label}-${val}`} className="font-normal flex-1 cursor-pointer">
+                      {display.charAt(0).toUpperCase() + display.slice(1)}
+                    </Label>
+                  </div>
+               )
+            })}
           </div>
         </PopoverContent>
       </Popover>
     </div>
   );
 
-  if (isLoading) {
-    return (
-        <div className="flex justify-center items-center p-8">
-            <Loader2 className="h-6 w-6 animate-spin" />
-            <span className="ml-2">Loading filters...</span>
-        </div>
-    );
-  }
-
   return (
     <div className="grid gap-6 py-4">
+        <MultiSelectPopover
+          label="Papers"
+          options={paperOptions}
+          selected={selectedPapers}
+          onChange={(value) => handleMultiSelectChange(value, selectedPapers, setSelectedPapers, paperOptions.map(p => p.id))}
+          valueKey="id"
+          displayKey="title"
+        />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Select value={subject} onValueChange={setSubject} disabled={availableSubjects.length === 0}>
+                <Select value={subject} onValueChange={setSubject} disabled={availableSubjects.length === 0 || selectedPapers.length === 0}>
                 <SelectTrigger id="subject" className="w-full">
                     <SelectValue placeholder="Select subject" />
                 </SelectTrigger>
@@ -203,6 +197,8 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
                 options={ALL_DIFFICULTIES}
                 selected={selectedDifficulties}
                 onChange={(value) => handleMultiSelectChange(value, selectedDifficulties, setSelectedDifficulties, ALL_DIFFICULTIES)}
+                displayKey=""
+                valueKey=""
             />
         </div>
         
@@ -211,14 +207,8 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
             options={ALL_QUESTION_TYPES}
             selected={selectedQuestionTypes}
             onChange={(value) => handleMultiSelectChange(value, selectedQuestionTypes, setSelectedQuestionTypes, ALL_QUESTION_TYPES)}
-        />
-
-        <MultiSelectPopover
-            label="Sections"
-            options={availableSections}
-            selected={selectedSections}
-            onChange={(value) => handleMultiSelectChange(value, selectedSections, setSelectedSections, availableSections)}
-            disabled={availableSections.length === 0}
+            displayKey=""
+            valueKey=""
         />
         
         <Separator />
@@ -255,7 +245,8 @@ export function QuizSetup({ paperId }: { paperId: string | null }) {
         
         <Separator />
 
-        <Button onClick={handleStartQuiz} className="w-full mt-2" size="lg">
+        <Button onClick={handleStartQuiz} className="w-full mt-2" size="lg" disabled={isLoading}>
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Start Quiz
         </Button>
     </div>

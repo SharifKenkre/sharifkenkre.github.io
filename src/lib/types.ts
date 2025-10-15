@@ -7,13 +7,12 @@ export type Question = {
   year?: number;
   subject?: string;
   section?: string;
-  number?: number;
-  questionType?: 'mcq' | 'assertion-reason' | 'image' | 'puzzle';
+  number: number; // Now mandatory and used for ordering
+  questionType?: 'mcq' | 'assertion-reason' | 'image-mcq' | 'puzzle' | 'cause-effect' | 'data-points' | 'assumption';
   passageId?: string;
   instruction?: string;
   statement: string;
-  statements?: string[];
-  bullets?: string[];
+  texts?: string[]; // Renamed from statements/bullets
   options: string[];
   answer: string; // The correct option key, e.g., "A", "B"
   marks?: number;
@@ -42,6 +41,22 @@ export type AnswerState = {
   isCorrect: boolean;
 };
 
+export type QuizAttemptSummary = {
+  uid: string;
+  attemptId: string;
+  paperId: string;
+  paperTitle?: string;
+  attempted: number;
+  correct: number;
+  wrong: number;
+  skipped: number;
+  score?: number;
+  durationSec?: number;
+  startedAt: any;
+  completedAt?: any;
+  lastUpdatedAt: any;
+}
+
 export type Attempt = {
   uid: string;
   qid: string;
@@ -56,5 +71,12 @@ export type Paper = {
   title: string;
   year: number;
   exam: string;
+  durationMin?: number;
   sections?: string[];
+  subjects?: string[];
+  questionTypes?: string[];
+  time?: number; // in minutes
+  totalQuestions?: number;
+  totalMarks?: number;
+  papers?: string[];
 };

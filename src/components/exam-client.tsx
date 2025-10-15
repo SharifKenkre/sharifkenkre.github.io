@@ -13,24 +13,17 @@ import QuestionSidebar from './question-sidebar';
 import type { Question, AnswerState } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@/context/user-context';
-import { saveAttempts } from '@/lib/actions';
 import { ScrollArea } from './ui/scroll-area';
+import { saveAttempts } from '@/lib/actions';
 
 type ExamClientProps = {
   questions: Question[];
   totalTime: number; // in seconds
+  paperSubjects: string[];
+  paperId?: string;
 };
 
-function shuffleArray(array: any[]) {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-  }
-  return newArray;
-}
-
-export default function ExamClient({ questions: initialQuestions, totalTime }: ExamClientProps) {
+export default function ExamClient({ questions: initialQuestions, totalTime, paperSubjects, paperId }: ExamClientProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answerStates, setAnswerStates] = useState<AnswerState[]>([]);
@@ -40,37 +33,38 @@ export default function ExamClient({ questions: initialQuestions, totalTime }: E
   const router = useRouter();
   const { toast } = useToast();
   const { user } = useUser();
-
+  
   useEffect(() => {
-    const shuffledQuestions = initialQuestions.map(q => ({
-      ...q,
-      options: shuffleArray(q.options)
+    // Enforce uniqueness with a Set and use the pre-sorted array from Firestore
+    const uniqueQuestions = Array.from(new Map(initialQuestions.map(q => [q.id, q])).values());
+    
+    setQuestions(uniqueQuestions);
+
+    const initialAnswerStates = uniqueQuestions.map(() => ({
+      response: "",
+      status: "not-visited",
+      isCorrect: false,
     }));
 
-    setQuestions(shuffledQuestions);
-    setAnswerStates(
-      shuffledQuestions.map(() => ({
-        response: "",
-        status: "not-visited",
-        isCorrect: false,
-      }))
-    );
+    if (initialAnswerStates.length > 0) {
+      initialAnswerStates[0].status = 'not-answered';
+    }
+    setAnswerStates(initialAnswerStates);
   }, [initialQuestions]);
-
+  
   useEffect(() => {
     if (questions.length > 0) {
       const currentAnswer = answerStates[currentQuestionIndex];
-      setCurrentResponse(currentAnswer.response);
-      setIsMarkedForReview(currentAnswer.status === 'marked-for-review' || currentAnswer.status === 'answered-and-marked');
-      
-      if (answerStates[0].status === 'not-visited') {
-        updateAnswerState(0, answerStates[0].response, false, 'not-answered');
+      if (currentAnswer) {
+        setCurrentResponse(currentAnswer.response);
+        setIsMarkedForReview(currentAnswer.status === 'marked-for-review' || currentAnswer.status === 'answered-and-marked');
       }
     }
   }, [currentQuestionIndex, questions, answerStates]);
-  
+
   const updateAnswerState = (index: number, response: string, markedForReview: boolean, overrideStatus?: AnswerState['status']) => {
     setAnswerStates(prev => {
+      if (index === undefined || index < 0 || index >= prev.length) return prev;
       const newStates = [...prev];
       const hasResponse = response.trim() !== "";
       let status: AnswerState['status'];
@@ -88,7 +82,7 @@ export default function ExamClient({ questions: initialQuestions, totalTime }: E
       }
       
       const question = questions[index];
-      const selectedOptionIndex = question.options.findIndex(opt => opt === response);
+      const selectedOptionIndex = question.options ? question.options.findIndex(opt => opt === response) : -1;
       const selectedOptionChar = String.fromCharCode(65 + selectedOptionIndex);
       const isCorrect = hasResponse ? selectedOptionChar === question.answer : false;
 
@@ -101,7 +95,11 @@ export default function ExamClient({ questions: initialQuestions, totalTime }: E
     updateAnswerState(currentQuestionIndex, currentResponse, isMarkedForReview);
 
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
+      const nextIndex = currentQuestionIndex + 1;
+       if (answerStates[nextIndex].status === 'not-visited') {
+        updateAnswerState(nextIndex, answerStates[nextIndex].response, false, 'not-answered');
+      }
+      setCurrentQuestionIndex(nextIndex);
     } else {
       toast({ title: "You are at the last question." });
     }
@@ -114,43 +112,48 @@ export default function ExamClient({ questions: initialQuestions, totalTime }: E
   const handleSaveAndMarkForReview = () => {
     updateAnswerState(currentQuestionIndex, currentResponse, true);
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
+       const nextIndex = currentQuestionIndex + 1;
+       if (answerStates[nextIndex].status === 'not-visited') {
+         updateAnswerState(nextIndex, answerStates[nextIndex].response, false, 'not-answered');
+       }
+       setCurrentQuestionIndex(nextIndex);
     } else {
       toast({ title: "You are at the last question." });
     }
   };
   
   const handleSubmitExam = async () => {
-    // Final update for the current question
+    // Save final answer state before calculating results
     updateAnswerState(currentQuestionIndex, currentResponse, isMarkedForReview);
     
-    // Use a timeout to ensure state update is processed before submission
     setTimeout(async () => {
-      // 1. Save attempts to Firestore
-      if (user) {
-        const attemptsToSave = questions.map((q, i) => ({
-          uid: user.uid,
-          qid: q.id,
-          selected: answerStates[i].response || "",
-          isCorrect: answerStates[i].isCorrect,
-        }));
-        try {
-          await saveAttempts(attemptsToSave);
-        } catch (error) {
-          console.error("Failed to save attempts:", error);
-          toast({ variant: "destructive", title: "Error", description: "Could not save your progress." });
-        }
-      }
-
-      // 2. Calculate results for session storage
       const score = answerStates.filter(a => a.isCorrect).length;
+      
+      // if (user) {
+      //   const attemptSummary = {
+      //     score: score,
+      //     total: questions.length,
+      //     paperId: paperId || 'custom',
+      //   };
+      //   try {
+      //     await saveAttempts(user.uid, attemptSummary);
+      //   } catch (error) {
+      //     console.error("Failed to save attempts:", error);
+      //     if (error instanceof Error && error.message.includes('permission-denied')) {
+      //        toast({ variant: "destructive", title: "Permission Denied", description: "You do not have permission to save quiz history. Please check your Firestore rules." });
+      //     } else {
+      //       toast({ variant: "destructive", title: "Error", description: "Could not save your progress." });
+      //     }
+      //   }
+      // }
+
       const results = {
           score: score,
           total: questions.length,
           answers: questions.map((q, i) => ({
               question: q.statement,
-              answer: answerStates[i].response || "Not Answered",
-              isCorrect: answerStates[i].isCorrect,
+              answer: answerStates[i]?.response || "Not Answered",
+              isCorrect: answerStates[i]?.isCorrect,
           })),
       };
       sessionStorage.setItem('quizResults', JSON.stringify(results));
@@ -160,16 +163,22 @@ export default function ExamClient({ questions: initialQuestions, totalTime }: E
   
   const navigateToQuestion = (index: number) => {
     updateAnswerState(currentQuestionIndex, currentResponse, isMarkedForReview);
+    if (answerStates[index].status === 'not-visited') {
+        updateAnswerState(index, '', false, 'not-answered');
+    }
     setCurrentQuestionIndex(index);
   };
 
   if (questions.length === 0) {
     return <div className="container mx-auto p-4 text-center">Preparing exam...</div>;
   }
-
+  
   const currentQuestion = questions[currentQuestionIndex];
-  const optionChars = questions[currentQuestionIndex].options.map((_, i) => String.fromCharCode(65 + i));
-
+  if (!currentQuestion) {
+      return <div className="container mx-auto p-4 text-center">Loading question...</div>;
+  }
+  const optionChars = (currentQuestion.options || []).map((_, i) => String.fromCharCode(65 + i));
+  
   return (
     <div className="container mx-auto py-8 px-4 md:px-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -178,7 +187,7 @@ export default function ExamClient({ questions: initialQuestions, totalTime }: E
             <CardHeader>
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-lg font-semibold text-primary">Question {currentQuestionIndex + 1}</p>
+                  <p className="text-lg font-semibold text-primary">Question {currentQuestion.number}</p>
                   <p className="text-xs text-muted-foreground mt-1">ID: {currentQuestion.id}</p>
                 </div>
               </div>
@@ -196,40 +205,37 @@ export default function ExamClient({ questions: initialQuestions, totalTime }: E
                   
                   <p className="text-xl mb-4 font-medium">{currentQuestion.statement}</p>
 
-                  {currentQuestion.statements && (
+                  {currentQuestion.texts && currentQuestion.texts.length > 0 && (
                     <div className="space-y-2 mb-4">
-                      {currentQuestion.statements.map((stmt, i) => (
-                        <p key={i} className="text-base"><b>Statement {i+1}:</b> {stmt}</p>
+                      {currentQuestion.texts.map((text, i) => (
+                        <p key={i} className="text-base">{text}</p>
                       ))}
                     </div>
-                  )}
-
-                  {currentQuestion.bullets && (
-                     <ul className="list-disc list-inside space-y-1 mb-4">
-                       {currentQuestion.bullets.map((bullet, i) => <li key={i}>{bullet}</li>)}
-                     </ul>
                   )}
 
                   {currentQuestion.imageUrls && currentQuestion.imageUrls.length > 0 && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                      {currentQuestion.imageUrls.map((url, i) => (
-                        url && !url.includes('YOUR_STORAGE_URL') && (
-                         <div key={i} className="relative w-full h-64 rounded-lg overflow-hidden border">
-                           <Image 
-                             src={url} 
-                             alt={currentQuestion.imageAlt || `Question Image ${i + 1}`}
-                             fill
-                             style={{ objectFit: 'contain' }}
-                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                           />
-                         </div>
-                        )
-                      ))}
+                      {currentQuestion.imageUrls.map((url, i) => {
+                        if (!url || !(url.startsWith('http://') || url.startsWith('https://'))) {
+                          return null;
+                        }
+                        return (
+                          <div key={i} className="relative w-full h-64 rounded-lg overflow-hidden border">
+                            <Image
+                              src={url}
+                              alt={currentQuestion.imageAlt || `Question Image ${i + 1}`}
+                              fill
+                              style={{ objectFit: 'contain' }}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                   
                   <RadioGroup value={currentResponse} onValueChange={setCurrentResponse} className="space-y-4">
-                    {currentQuestion.options.map((option, index) => (
+                    {(currentQuestion.options || []).map((option, index) => (
                       <div key={index} className="flex items-center space-x-3 p-3 rounded-md border border-input has-[:checked]:border-primary has-[:checked]:bg-primary/5">
                         <RadioGroupItem value={option} id={`option-${index}`} />
                         <Label htmlFor={`option-${index}`} className="text-base flex-1 cursor-pointer">

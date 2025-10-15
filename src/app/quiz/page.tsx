@@ -1,26 +1,54 @@
 
 import { Suspense } from 'react';
 import ExamClient from '@/components/exam-client';
-import type { Question } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { AlertTriangle, Loader2 } from 'lucide-react';
-import { getQuestionsFromFirestore } from '@/lib/actions';
+import type { Question, Paper } from '@/lib/types';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { AlertTriangle } from 'lucide-react';
+import { getQuestionsFromFirestore, getPaperById } from '@/lib/actions';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type QuizPageProps = {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { 
+    limit?: string;
+    difficulty?: string;
+    papers?: string; // Changed from paperId to papers
+    subject?: string;
+    questionType?: string;
+    time?: string;
+  };
 };
 
 async function QuizLoader({ searchParams }: QuizPageProps) {
-  const limit = parseInt(searchParams.limit as string) || 10;
-  const difficulty = searchParams.difficulty as string || 'easy,medium,hard';
-  const section = searchParams.section as string | undefined;
-  const paperId = searchParams.paperId as string | undefined;
-  const subject = searchParams.subject as string | undefined;
-  const questionType = searchParams.questionType as string | undefined;
-  const time = parseInt(searchParams.time as string) || (limit * 60); // default 1 min per question
+  const { 
+    limit: limitParam, 
+    difficulty: difficultyParam, 
+    papers: papersParam, // Changed from paperId
+    subject, 
+    questionType,
+    time: timeParam 
+  } = searchParams;
 
-  const questions = await getQuestionsFromFirestore(difficulty, limit, section, paperId, subject, questionType);
+  const limit = parseInt(limitParam || '10');
+  const difficulty = difficultyParam || 'easy,medium,hard';
+  const paperIds = papersParam ? papersParam.split(',') : [];
+  
+  let paper: Paper | null = null;
+  // If only one paper is selected, we can still treat it as the main paper context
+  if (paperIds.length === 1) {
+    paper = await getPaperById(paperIds[0]);
+  }
+
+  // Use time from URL, or paper's time if one paper is loaded, or default
+  const timeInMinutes = parseInt(timeParam || (paper?.time ? paper.time.toString() : (limit * 1).toString()));
+  const totalTimeInSeconds = timeInMinutes * 60;
+
+  const questions = await getQuestionsFromFirestore(
+    difficulty, 
+    limit, 
+    paperIds, 
+    subject, 
+    questionType
+  );
 
   if (!questions || questions.length === 0) {
     return (
@@ -34,7 +62,7 @@ async function QuizLoader({ searchParams }: QuizPageProps) {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              We couldn't find any questions with the selected criteria. Please adjust your selection or check your 'questions' collection in Firestore.
+              We couldn't find any questions with the selected criteria. Please adjust your selection and try again.
             </p>
           </CardContent>
         </Card>
@@ -42,7 +70,7 @@ async function QuizLoader({ searchParams }: QuizPageProps) {
     );
   }
   
-  return <ExamClient questions={questions} totalTime={time} />;
+  return <ExamClient questions={questions} totalTime={totalTimeInSeconds} paperSubjects={paper?.subjects || []} paperId={paper?.id} />;
 }
 
 function QuizSkeleton() {

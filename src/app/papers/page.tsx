@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,8 +30,8 @@ export default async function PapersPage() {
               </CardHeader>
               <CardFooter className="mt-auto">
                 <Button asChild className="w-full">
-                  <Link href={`/quiz-selection?paperId=${paper.paperId}`}>
-                    Start Preparation
+                  <Link href={`/paper/${paper.id}`}>
+                    View Details
                   </Link>
                 </Button>
               </CardFooter>
@@ -40,7 +41,7 @@ export default async function PapersPage() {
       ) : (
         <div className="text-center text-muted-foreground py-16">
           <p>No exam papers found.</p>
-          <p className="text-sm mt-2">Please check your 'papers' collection in Firestore.</p>
+          <p className="text-sm mt-2">Please check your 'content_papers' collection in Firestore.</p>
         </div>
       )}
     </div>
