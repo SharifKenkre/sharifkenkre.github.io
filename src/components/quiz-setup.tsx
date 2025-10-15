@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -22,13 +22,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronDown, Loader2 } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { getAvailableSubjects } from "@/lib/actions";
-import type { Paper } from "@/lib/types";
 
 const ALL_DIFFICULTIES = ["easy", "medium", "hard"];
 const ALL_QUESTION_TYPES = ['mcq', 'assertion-reason', 'image-mcq', 'puzzle'];
 
-export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
-  const [selectedPapers, setSelectedPapers] = useState<string[]>([]);
+export function QuizSetup({ paperId }: { paperId: string | null }) {
   const [numberOfQuestions, setNumberOfQuestions] = useState(10);
   const [selectedDifficulties, setSelectedDifficulties] = useState<string[]>(ALL_DIFFICULTIES);
   const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<string[]>(ALL_QUESTION_TYPES);
@@ -37,23 +35,14 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
   const router = useRouter();
 
   const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const paperOptions = useMemo(() => allPapers.map(p => ({ id: p.id, title: p.title })), [allPapers]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchFilters() {
-      if (selectedPapers.length === 0) {
-        setAvailableSubjects([]);
-        return;
-      }
       setIsLoading(true);
       try {
-        const subjects = await getAvailableSubjects(selectedPapers);
+        const subjects = await getAvailableSubjects(paperId || undefined);
         setAvailableSubjects(subjects);
-        if (!subjects.includes(subject)) {
-            setSubject("all");
-        }
       } catch (error) {
         console.error("Failed to fetch filters", error);
       } finally {
@@ -61,14 +50,10 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
       }
     }
     fetchFilters();
-  }, [selectedPapers, subject]);
+  }, [paperId]);
 
   const handleStartQuiz = () => {
-    let url = `/quiz?limit=${numberOfQuestions}&time=${timeLimit}`; // time is in minutes here
-    
-    if (selectedPapers.length > 0) {
-      url += `&papers=${selectedPapers.join(',')}`;
-    }
+    let url = `/quiz?limit=${numberOfQuestions}&time=${timeLimit * 60}`;
     if (selectedDifficulties.length > 0 && selectedDifficulties.length < ALL_DIFFICULTIES.length) {
       url += `&difficulty=${selectedDifficulties.join(',')}`;
     }
@@ -77,6 +62,9 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
     }
     if (subject !== 'all') {
         url += `&subject=${subject}`;
+    }
+    if (paperId) {
+      url += `&paperId=${paperId}`;
     }
     router.push(url);
   };
@@ -88,9 +76,19 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
     allOptions: string[]
   ) => {
     if (value === 'all') {
-      setter(list.length === allOptions.length ? [] : allOptions);
+      if (list.length === allOptions.length) {
+        setter([]);
+      } else {
+        setter(allOptions);
+      }
     } else {
-      setter(list.includes(value) ? list.filter((item) => item !== value) : [...list, value]);
+      let newList: string[];
+      if (list.includes(value)) {
+        newList = list.filter((item) => item !== value);
+      } else {
+        newList = [...list, value];
+      }
+      setter(newList);
     }
   };
 
@@ -100,16 +98,12 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
     selected,
     onChange,
     disabled = false,
-    displayKey = 'title',
-    valueKey = 'id',
   }: {
     label: string;
-    options: any[];
+    options: string[];
     selected: string[];
     onChange: (value: string) => void;
     disabled?: boolean;
-    displayKey?: string;
-    valueKey?: string;
   }) => (
     <div className="space-y-2">
       <Label>{label}</Label>
@@ -120,17 +114,20 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
               {selected.length === 0
                 ? `Select ${label.toLowerCase()}...`
                 : selected.length === options.length 
-                ? `All ${label}`
-                : `${selected.length} ${label.toLowerCase()} selected`}
+                ? "All"
+                : selected.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(", ")}
             </span>
             <ChevronDown className="h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+        <PopoverContent className="w-full p-0" align="start">
           <div className="p-2 space-y-1 max-h-60 overflow-y-auto">
             <div
-                className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent cursor-pointer"
-                onClick={(e) => { e.preventDefault(); onChange('all'); }}
+                className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onChange('all');
+                }}
               >
                 <Checkbox
                   id={`checkbox-${label}-all`}
@@ -138,51 +135,50 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
                   onCheckedChange={() => onChange('all')}
                 />
                 <Label htmlFor={`checkbox-${label}-all`} className="font-normal flex-1 cursor-pointer">
-                  All {label}
+                  All
                 </Label>
             </div>
             <Separator />
-            {options.map((option) => {
-               const val = valueKey ? option[valueKey] : option;
-               const display = displayKey ? option[displayKey] : option;
-               return (
-                  <div
-                    key={val}
-                    className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent cursor-pointer"
-                    onClick={(e) => { e.preventDefault(); onChange(val); }}
-                  >
-                    <Checkbox
-                      id={`checkbox-${label}-${val}`}
-                      checked={selected.includes(val)}
-                      onCheckedChange={() => onChange(val)}
-                    />
-                    <Label htmlFor={`checkbox-${label}-${val}`} className="font-normal flex-1 cursor-pointer">
-                      {display.charAt(0).toUpperCase() + display.slice(1)}
-                    </Label>
-                  </div>
-               )
-            })}
+            {options.map((option) => (
+              <div
+                key={option}
+                className="flex items-center gap-2 font-normal p-2 rounded-md hover:bg-accent"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onChange(option);
+                }}
+              >
+                <Checkbox
+                  id={`checkbox-${label}-${option}`}
+                  checked={selected.includes(option)}
+                  onCheckedChange={() => onChange(option)}
+                />
+                <Label htmlFor={`checkbox-${label}-${option}`} className="font-normal flex-1 cursor-pointer">
+                  {option.charAt(0).toUpperCase() + option.slice(1)}
+                </Label>
+              </div>
+            ))}
           </div>
         </PopoverContent>
       </Popover>
     </div>
   );
 
+  if (isLoading) {
+    return (
+        <div className="flex justify-center items-center p-8">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span className="ml-2">Loading filters...</span>
+        </div>
+    );
+  }
+
   return (
     <div className="grid gap-6 py-4">
-        <MultiSelectPopover
-          label="Papers"
-          options={paperOptions}
-          selected={selectedPapers}
-          onChange={(value) => handleMultiSelectChange(value, selectedPapers, setSelectedPapers, paperOptions.map(p => p.id))}
-          valueKey="id"
-          displayKey="title"
-        />
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Select value={subject} onValueChange={setSubject} disabled={availableSubjects.length === 0 || selectedPapers.length === 0}>
+                <Select value={subject} onValueChange={setSubject} disabled={availableSubjects.length === 0}>
                 <SelectTrigger id="subject" className="w-full">
                     <SelectValue placeholder="Select subject" />
                 </SelectTrigger>
@@ -197,8 +193,6 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
                 options={ALL_DIFFICULTIES}
                 selected={selectedDifficulties}
                 onChange={(value) => handleMultiSelectChange(value, selectedDifficulties, setSelectedDifficulties, ALL_DIFFICULTIES)}
-                displayKey=""
-                valueKey=""
             />
         </div>
         
@@ -207,8 +201,6 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
             options={ALL_QUESTION_TYPES}
             selected={selectedQuestionTypes}
             onChange={(value) => handleMultiSelectChange(value, selectedQuestionTypes, setSelectedQuestionTypes, ALL_QUESTION_TYPES)}
-            displayKey=""
-            valueKey=""
         />
         
         <Separator />
@@ -245,8 +237,7 @@ export function QuizSetup({ allPapers }: { allPapers: Paper[] }) {
         
         <Separator />
 
-        <Button onClick={handleStartQuiz} className="w-full mt-2" size="lg" disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        <Button onClick={handleStartQuiz} className="w-full mt-2" size="lg">
             Start Quiz
         </Button>
     </div>

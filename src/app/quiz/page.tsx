@@ -11,7 +11,7 @@ type QuizPageProps = {
   searchParams: { 
     limit?: string;
     difficulty?: string;
-    papers?: string; // Changed from paperId to papers
+    paperId?: string;
     subject?: string;
     questionType?: string;
     time?: string;
@@ -22,30 +22,28 @@ async function QuizLoader({ searchParams }: QuizPageProps) {
   const { 
     limit: limitParam, 
     difficulty: difficultyParam, 
-    papers: papersParam, // Changed from paperId
+    paperId, 
     subject, 
     questionType,
     time: timeParam 
   } = searchParams;
 
-  const limit = parseInt(limitParam || '10');
+  const limit = paperId ? 60 : parseInt(limitParam || '10');
   const difficulty = difficultyParam || 'easy,medium,hard';
-  const paperIds = papersParam ? papersParam.split(',') : [];
   
   let paper: Paper | null = null;
-  // If only one paper is selected, we can still treat it as the main paper context
-  if (paperIds.length === 1) {
-    paper = await getPaperById(paperIds[0]);
+  if (paperId) {
+    paper = await getPaperById(paperId);
   }
 
-  // Use time from URL, or paper's time if one paper is loaded, or default
-  const timeInMinutes = parseInt(timeParam || (paper?.time ? paper.time.toString() : (limit * 1).toString()));
+  // If a paper is loaded, use its time, otherwise use URL param or default
+  const timeInMinutes = paper?.time || (limit * 1); // Default 1 min per question for custom quizzes
   const totalTimeInSeconds = timeInMinutes * 60;
 
   const questions = await getQuestionsFromFirestore(
     difficulty, 
     limit, 
-    paperIds, 
+    paperId, 
     subject, 
     questionType
   );
@@ -62,7 +60,7 @@ async function QuizLoader({ searchParams }: QuizPageProps) {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              We couldn't find any questions with the selected criteria. Please adjust your selection and try again.
+              We couldn't find any questions with the selected criteria. Please adjust your selection or check the questions subcollection for your paper in Firestore.
             </p>
           </CardContent>
         </Card>
@@ -70,7 +68,7 @@ async function QuizLoader({ searchParams }: QuizPageProps) {
     );
   }
   
-  return <ExamClient questions={questions} totalTime={totalTimeInSeconds} paperSubjects={paper?.subjects || []} paperId={paper?.id} />;
+  return <ExamClient questions={questions} totalTime={totalTimeInSeconds} paperSubjects={paper?.subjects || []} paperId={paperId} />;
 }
 
 function QuizSkeleton() {

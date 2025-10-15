@@ -78,5 +78,4 @@ export type Paper = {
   time?: number; // in minutes
   totalQuestions?: number;
   totalMarks?: number;
-  papers?: string[];
 };

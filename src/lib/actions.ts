@@ -35,66 +35,66 @@ export async function getPapersFromFirestore(): Promise<Paper[]> {
 export async function getQuestionsFromFirestore(
   difficulty: string,
   count: number,
-  paperIds?: string[], // Changed from paperId to paperIds
+  paperId?: string,
   subject?: string,
   questionType?: string,
 ): Promise<Question[]> {
   try {
-    let questionsList: Question[] = [];
-    const questionsToFetch = count || 10;
+    if (!paperId) {
+      console.error("A paperId is required to fetch questions.");
+      return [];
+    }
 
-    if (paperIds && paperIds.length > 0) {
-      // Fetch from specific papers
-      for (const paperId of paperIds) {
-        const questionsColRef = collection(db, `content_papers/${paperId}/questions`);
-        let constraints: QueryConstraint[] = [];
-        
+    const questionsColRef = collection(db, `content_papers/${paperId}/questions`);
+    let constraints: QueryConstraint[] = [
+      orderBy("number", "asc"),
+      firestoreLimit(count || 60),
+    ];
+
+    if (paperId) {
+        // When a paperId is provided, we fetch all its questions up to the limit
+        // and ignore other filters, as we are in "exam mode".
+    } else {
         const difficulties = difficulty.split(',').map(d => d.trim()).filter(d => d);
         if (difficulties.length > 0 && difficulties.length < 3) {
-          constraints.push(where("difficulty", "in", difficulties));
+            constraints.push(where("difficulty", "in", difficulties));
         }
-
+        
         const questionTypes = questionType?.split(',').map(t => t.trim()).filter(t => t);
         if (questionTypes && questionTypes.length > 0) {
             constraints.push(where("questionType", "in", questionTypes));
         }
-
+        
         if (subject && subject !== 'all') {
             constraints.push(where("subject", "==", subject));
         }
-
-        const q = query(questionsColRef, ...constraints);
-        const questionSnapshot = await getDocs(q);
-        const paperQuestions = questionSnapshot.docs.map(doc => {
-            const data = doc.data();
-            return { id: doc.id, ...data, paperId } as Question;
-        });
-        questionsList.push(...paperQuestions);
-      }
-    } else {
-        // Fallback to fetching from all papers if none are specified
-        const questionsColRef = collectionGroup(db, `questions`);
-        // This part would be inefficient at scale and should be used with caution
-        // For now, it will fetch from all available questions across all papers
-        const q = query(questionsColRef, firestoreLimit(500)); // Limit to avoid huge reads
-        const questionSnapshot = await getDocs(q);
-        const allQuestions = questionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Question));
-        questionsList.push(...allQuestions);
     }
     
-    // Shuffle the collected questions
-    for (let i = questionsList.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [questionsList[i], questionsList[j]] = [questionsList[j], questionsList[i]];
-    }
+    const q = query(questionsColRef, ...constraints);
+    const questionSnapshot = await getDocs(q);
+    
+    let questionsList: Question[] = questionSnapshot.docs.map(doc => {
+        const data = doc.data();
+        return { 
+            id: doc.id, 
+            number: data.number,
+            questionType: data.questionType,
+            instruction: data.instruction,
+            statement: data.statement,
+            texts: data.texts,
+            options: data.options,
+            answer: data.answer,
+            marks: data.marks,
+            passageId: data.passageId,
+            imageUrls: data.imageUrls,
+            imageAlt: data.imageAlt
+        } as Question;
+    });
 
-    // Apply limit and populate passages
-    const limitedQuestions = questionsList.slice(0, questionsToFetch).map((q, i) => ({ ...q, number: i + 1 }));
-
-    const passageIds = limitedQuestions.map(q => ({ passageId: q.passageId, paperId: q.paperId })).filter(p => p.passageId && p.paperId);
+    const passageIds = questionsList.map(q => q.passageId).filter((id): id is string => !!id);
     if (passageIds.length > 0) {
-        const uniquePassageRefs = [...new Map(passageIds.map(p => [`${p.paperId}-${p.passageId}`, p])).values()];
-        const passagePromises = uniquePassageRefs.map(p => getDoc(doc(db, `content_papers/${p.paperId}/passages`, p.passageId!)));
+        const uniquePassageIds = [...new Set(passageIds)];
+        const passagePromises = uniquePassageIds.map(pId => getDoc(doc(db, `content_papers/${paperId}/passages`, pId)));
         
         const passageSnapshots = await Promise.all(passagePromises);
         const passages = passageSnapshots.reduce((acc, snap) => {
@@ -104,7 +104,7 @@ export async function getQuestionsFromFirestore(
             return acc;
         }, {} as {[key: string]: Passage});
 
-        return limitedQuestions.map(q => {
+        questionsList = questionsList.map(q => {
             if (q.passageId && passages[q.passageId]) {
                 return { ...q, passageText: passages[q.passageId].text };
             }
@@ -112,7 +112,7 @@ export async function getQuestionsFromFirestore(
         });
     }
 
-    return limitedQuestions;
+    return questionsList;
 
   } catch (error) {
     console.error("Error fetching questions from Firestore:", error);
@@ -143,6 +143,7 @@ export async function saveAttempt(uid: string, attemptId: string, attemptSummary
                 requestResourceData: data
             });
             errorEmitter.emit('permission-error', permissionError);
+            // Re-throw the original error to be caught by the outer try-catch
             throw serverError;
         });
 
@@ -150,32 +151,31 @@ export async function saveAttempt(uid: string, attemptId: string, attemptSummary
         return finalDoc.data();
 
     } catch (e) {
+        // This will catch the re-thrown error from the setDoc call
         console.error("Failed to save or update attempt:", e);
+        // We can choose to re-throw or handle it silently, for now, we log and return null
         return null;
     }
 }
 
 
-export async function getAvailableSubjects(paperIds?: string[]): Promise<string[]> {
+export async function getAvailableSubjects(paperId?: string): Promise<string[]> {
   try {
-    const subjects = new Set<string>();
-    if (paperIds && paperIds.length > 0) {
-      for (const paperId of paperIds) {
-        const paper = await getPaperById(paperId);
-        if (paper && paper.subjects && paper.subjects.length > 0) {
-          paper.subjects.forEach(s => subjects.add(s));
-        }
+    if (paperId) {
+      const paper = await getPaperById(paperId);
+      if (paper && paper.subjects && paper.subjects.length > 0) {
+        return paper.subjects.sort();
       }
-    } else {
-      // Fallback if no paperId is provided
-      const snapshot = await getDocs(collectionGroup(db, 'questions'));
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        if (data.subject) {
-          subjects.add(data.subject);
-        }
-      });
     }
+    // Fallback if no paperId is provided - though less efficient.
+    const snapshot = await getDocs(collectionGroup(db, 'questions'));
+    const subjects = new Set<string>();
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      if (data.subject) {
+        subjects.add(data.subject);
+      }
+    });
     return Array.from(subjects).sort();
   } catch (error) {
     console.error("Error fetching subjects:", error);
